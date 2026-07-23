@@ -132,7 +132,7 @@ const HAMIEN_EVENTS = [
     endDate: "2026-10-23T13:50:00Z",
     locationType: "in-person",
     venue: "Nottingham",
-    description: "Rob Eastaway will be chairing a symposium in which he and Thomas K. Briggs discuss <i>how history can enrich maths lessons</i>. \n This is one session of many that comprise the 10th British Congress of Mathematics Education, an event which rund from 23rd to 24th October. \n For more information, including price, venue, and booking, visit https://www.bcme.co.uk/ ."
+    description: "Rob Eastaway will be chairing a symposium in which he and Thomas K. Briggs discuss <i>how history can enrich maths lessons</i>. \n This is one session of many that comprise the 10th British Congress of Mathematics Education, an event which runs from 23rd to 24th October. \n For more information, including price, venue, and booking, visit https://www.bcme.co.uk/ ."
   },
 
 ];
