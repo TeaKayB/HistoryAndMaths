@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Events & Past Archive | The HaMiEN Network</title>
+  <meta name="description" content="Discover upcoming sessions, workshops, and events focused on history and maths in education. Access past reference materials and project presentation slides.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Card Badges and Labels */
+    .event-status { display: inline-block; padding: 4px 8px; font-size: 0.75rem; font-weight: bold; border-radius: 4px; margin-bottom: 12px; }
+    .status-upcoming { background: #f472b622; color: var(--accent); border: 1px solid #f472b644; }
+    .status-past { background: #272d42; color: var(--text-muted); }
+    
+    /* Dedicated Visual Badges Layout */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -2px 0 12px 0;
+    }
+    .badge-item {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 2px 8px;
+      background: #272d4233;
+      border-radius: 4px;
+      border: 1px solid #272d4277;
+    }
+    .badge-online::before {
+      content: "🖥️ ";
+      font-size: 0.85rem;
+      margin-right: 5px;
+    }
+    .badge-physical::before {
+      content: "📍 ";
+      font-size: 0.85rem;
+      margin-right: 5px;
+    }
+    
+    .toggle-wrapper { margin: 40px 0; text-align: center; }
+    .event-card-time { font-weight: bold; color: var(--accent-link); margin: 0 0 8px 0; font-size: 1.05rem; }
+    .event-card-desc a { color: var(--accent-link); text-decoration: underline; }
+    .event-card-desc a:hover { color: var(--accent); }
+  </style>
+  <link rel="icon" type="image/png" href="logo.png">
+
+</head>
+<body>
+  <header>
+    <a href="index.html" class="header-brand-link">
+      <div class="heading-group">
+        <img src="logo.png" alt="HaMiEN Emblem" class="site-logo">
+        <div class="brand-text-wrapper">
+          <h1 class="network-title">The <span>H</span>a<span>M</span>i<span>E</span><span>N</span></h1>
+          <span class="network-acronym">HISTORY & MATHEMATICS</span>
+        </div>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">About</a>
+      <a href="get-involved.html">Get Involved</a>
+      <a href="resources.html">Resources</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Upcoming Events</h2>
+    <p>Discover our scheduled network sessions, interactive curriculum workshops, and community panels.</p>
+    
+    <div id="upcoming-events-list" class="card-grid">Loading scheduled events...</div>
+
+    <div class="toggle-wrapper">
+      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Past Archive</button>
+    </div>
+
+    <div id="past-events-section" class="hidden">
+      <h2>Past Archive & Reference Material</h2>
+      <p>Review completed network sessions and download attached resource slides or presentation documents.</p>
+      <div id="past-events-list" class="card-grid"></div>
+    </div>
+  </main>
+
+  <script src="events-data.js"></script>
+  <script>
+    function linkify(text) {
+      if (!text) return '';
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+    }
+
+    function formatEventDateTime(startStr, endStr) {
+      const hasTime = startStr.includes('T');
+      const start = new Date(startStr);
+      
+      const dateOptions = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+      const timeOptions = { hour: '2-digit', minute: '2-digit' };
+
+      const startDateFormatted = start.toLocaleDateString('en-GB', dateOptions);
+
+      if (!hasTime) return startDateFormatted;
+
+      const startTimeFormatted = start.toLocaleTimeString('en-GB', timeOptions);
+      if (!endStr) return `${startDateFormatted}, ${startTimeFormatted}`;
+
+      const end = new Date(endStr);
+      const endDateFormatted = end.toLocaleDateString('en-GB', dateOptions);
+      const endTimeFormatted = end.toLocaleTimeString('en-GB', timeOptions);
+
+      if (startDateFormatted === endDateFormatted) {
+        return `${startDateFormatted}, ${startTimeFormatted} – ${endTimeFormatted}`;
+      }
+
+      return `${start.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}, ${startTimeFormatted} – ${end.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}, ${endTimeFormatted}`;
+    }
+
+    // Direct HTML badge container generator based on location types
+    function generateLocationBadges(typeStr, venueStr) {
+      if (!typeStr) return '';
+      const clean = typeStr.toLowerCase().trim();
+      const venueText = venueStr ? `: ${venueStr.trim()}` : '';
+      
+      let badgesHtml = '<div class="badge-row">';
+      
+      if (clean === 'online') {
+        badgesHtml += `<span class="badge-item badge-online">Online</span>`;
+      } else if (clean === 'in-person' || clean === 'in person') {
+        badgesHtml += `<span class="badge-item badge-physical">In-Person${venueText}</span>`;
+      } else if (clean === 'both' || clean === 'hybrid') {
+        // Appends both individual elements side-by-side for hybrid tracks
+        badgesHtml += `<span class="badge-item badge-online">Online</span>`;
+        badgesHtml += `<span class="badge-item badge-physical">In-Person${venueText}</span>`;
+      }
+      
+      badgesHtml += '</div>';
+      return badgesHtml;
+    }
+
+    function renderEvents() {
+      if (typeof HAMIEN_EVENTS === 'undefined' || HAMIEN_EVENTS.length === 0) {
+        document.getElementById('upcoming-events-list').innerText = 'No events currently listed.';
+        return;
+      }
+
+      // Grabs the exact localized time right now for precise chronological filtering
+      const nowTimestamp = new Date().getTime();
+      let upcomingHtml = '';
+      let pastHtml = '';
+
+      // Sort chronological sequence (soonest event first)
+      const sortedEvents = HAMIEN_EVENTS.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+      sortedEvents.forEach(event => {
+        const startTimestamp = new Date(event.startDate).getTime();
+        const timeDisplayString = formatEventDateTime(event.startDate, event.endDate);
+        const locationBadgesHtml = generateLocationBadges(event.locationType, event.venue);
+        
+        const title = event.title || 'Untitled Session';
+        const description = linkify(event.description);
+        
+        // CORRECTION: Standard numeric timestamp comparison completely removes format loopholes
+        const isPast = startTimestamp < nowTimestamp;
+
+        const eventBlock = `
+          <div class="custom-card">
+            <span class="event-status ${isPast ? 'status-past' : 'status-upcoming'}">${isPast ? 'PAST ARCHIVE' : 'UPCOMING'}</span>
+            <h3 style="margin: 5px 0 6px 0;">${title}</h3>
+            <p class="event-card-time">${timeDisplayString}</p>
+            ${locationBadgesHtml}
+            ${description ? `<p class="event-card-desc" style="margin-top:10px;">${description}</p>` : ''}
+          </div>
+        `;
+
+        if (!isPast) {
+          upcomingHtml += eventBlock;
+        } else {
+          // Places the most recent past event at the very top of the hidden archive stack
+          pastHtml = eventBlock + pastHtml;
+        }
+      });
+
+      document.getElementById('upcoming-events-list').innerHTML = upcomingHtml || '<p style="color:var(--text-muted);">No upcoming sessions currently scheduled.</p>';
+      document.getElementById('past-events-list').innerHTML = pastHtml || '<p style="color:var(--text-muted);">No past sessions currently archived.</p>';
+    }
+
+
+    function togglePastEvents() {
+      const sect = document.getElementById('past-events-section');
+      const btn = document.getElementById('toggle-past-btn');
+      if (sect.classList.contains('hidden')) {
+        sect.classList.remove('hidden');
+        btn.innerText = 'Hide Past Archive';
+      } else {
+        sect.classList.add('hidden');
+        btn.innerText = 'Show Past Archive';
+      }
+    }
+
+    window.onload = renderEvents;
+  </script>
+</body>
+</html>
