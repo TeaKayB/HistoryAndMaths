@@ -127,12 +127,12 @@ const HAMIEN_EVENTS = [
     description: "The BSHM's annual meeting at which researchers in a variety of themes within the history of mathematics present their ongoing work. \n An event report by Luke Wilkes is available at https://bshm.ac.uk/report-bshm-research-in-progress-2026/"
   },
   {
-    title: "TEST",
-    startDate: "2026-07-24",
-    endDate: "",
-    locationType: "both",
-    venue: "Up a chimney",
-    description: "Eventually I'll get this to work."
+    title: "How History Can Enrich Maths Lessons at BCME 10",
+    startDate: "2026-10-23T13:00:00Z",
+    endDate: "2026-10-23T13:50:00Z",
+    locationType: "in-person",
+    venue: "Nottingham",
+    description: "Rob Eastaway will be chairing a symposium in which he and Thomas K. Briggs discuss <i>how history can enrich maths lessons</i>. \n This is one session of many that comprise the 10th British Congress of Mathematics Education, an event which rund from 23rd to 24th October. \n For more information, including price, venue, and booking, visit https://www.bcme.co.uk/ ."
   },
 
 ];
