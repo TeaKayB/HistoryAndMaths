@@ -82,12 +82,13 @@
       <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Archive</button>
     </div>
 
-    <h3>Other Event Listings</h3>
+    <h2>Other Event Listings</h2>
     <p>Some other sources of HaMiEN-relevant events include:</p>
     <p>| <a href="https://bshm.ac.uk/events/" target="_blank">BSHM Events</a> |</p>
-<h2>Events Archive</h2>
-    <p>Click below to reveal the events archive, including related resources such as abstracts, papers, and slides.</p>
+
     <div id="past-events-section" class="hidden">
+      <h2>Events Archive</h2>
+    <p>Past events, many of which have been updated to include related resources such as abstracts, papers, and slides.</p>
       <div id="past-events-list" class="card-grid"></div>
     </div>
   </main>
@@ -203,7 +204,7 @@
         btn.innerText = 'Hide Archive';
       } else {
         sect.classList.add('hidden');
-        btn.innerText = 'Show Past Archive';
+        btn.innerText = 'Show Archive';
       }
     }
 
