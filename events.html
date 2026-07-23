@@ -73,17 +73,21 @@
     <h2>Upcoming Events</h2>
     <p>Discover HaMiEN-relevant events such as talks, workshops, training, and conferences.</p>
     <p>Most of these events are not organised by the HaMiEN, so please follow the links provided for each activity for booking, information, queries, etc.</p>
-    <p>We aim to update past events with links to relevant information such as resources and reports. To find these, scroll to the bottom of this list and click "Show Archived Events".</p>
+    <p>If you know of a HaMiEN-relevant event or event list that should be here but isn't, <a href="get-involved.html">share it with the community</a> or <a href="contact.html">get in touch</a>.</p>
+    <p>We aim to update past events with links to relevant information such as resources and reports. To find these, scroll to the bottom of this list and click "Show Archive".</p>
     
     <div id="upcoming-events-list" class="card-grid">Loading scheduled events...</div>
 
     <div class="toggle-wrapper">
-      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Archived Events</button>
+      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Archive</button>
     </div>
 
+    <h3>Other Event Listings</h3>
+    <p>Some other sources of HaMiEN-relevant events include:</p>
+    <p>| <a href="https://bshm.ac.uk/events/" target="_blank">BSHM Events</a> |</p>
+<h2>Events Archive</h2>
+    <p>Click below to reveal the events archive, including related resources such as abstracts, papers, and slides.</p>
     <div id="past-events-section" class="hidden">
-      <h2>Past Archive & Reference Material</h2>
-      <p>Review completed network sessions and download attached resource slides or presentation documents.</p>
       <div id="past-events-list" class="card-grid"></div>
     </div>
   </main>
@@ -196,7 +200,7 @@
       const btn = document.getElementById('toggle-past-btn');
       if (sect.classList.contains('hidden')) {
         sect.classList.remove('hidden');
-        btn.innerText = 'Hide Past Archive';
+        btn.innerText = 'Hide Archive';
       } else {
         sect.classList.add('hidden');
         btn.innerText = 'Show Past Archive';
