@@ -127,7 +127,7 @@ const HAMIEN_EVENTS = [
     description: "The BSHM's annual meeting at which researchers in a variety of themes within the history of mathematics present their ongoing work. \n An event report by Luke Wilkes is available at https://bshm.ac.uk/report-bshm-research-in-progress-2026/"
   },
   {
-    title: "How History Can Enrich Maths Lessons at BCME 10",
+    title: "How History Can Enrich Maths Lessons (at BCME 10)",
     startDate: "2026-10-23T13:00:00Z",
     endDate: "2026-10-23T13:50:00Z",
     locationType: "in-person",
