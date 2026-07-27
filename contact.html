@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us | The HaMiEN Network Team</title>
-  <meta name="description" content="Get in touch with the HaMiEN leadership team for academic research proposals, project partnerships, or cross-curricular education enquiries.">
+<title>Contact the History and Mathematics in Education Network (HaMiEN)</title>
+<meta name="description" content="Contact the History and Mathematics in Education Network (HaMiEN) about research collaborations, speaking engagements, partnerships, events and cross-curricular education.">
   <meta name="keywords" content="contact HaMiEN, Jason Yip email, Tom Briggs email, mathematics heritage education queries">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="hamien-network-logo.png">
@@ -32,7 +32,8 @@
 
   <main>
     <h2>Get in Touch</h2>
-    <p>We realise that there may be some great reasons to get in touch directly and privately. These include:</p>
+    <p>The History and Mathematics in Education Network (HaMiEN) connects teachers, researchers and museum educators interested in using history and mathematics to enrich one another. We'd be delighted to hear from you if you'd like to collaborate, ask a question or find out more.</p>
+	  <p>We realise that there may be some great reasons to get in touch directly and privately. These include:</p>
 	<ul style="color: var(--text-muted); padding-left: 20px; line-height: 1.8;">
         <li>You've noticed that something on this website is broken</li>
 		<li>You have a question or two about the HaMiEN that you'd like us to answer before you join</li>
@@ -44,9 +45,11 @@
     <div class="card-grid">
       <!-- Contact Option 1: General Queries -->
       <div class="custom-card">
-        <p>
-  <strong>Email Tom:</strong> 
-  tom<span style="display: none;">REMOVE-THIS-BOT-BLOCKER</span>@tkbriggs.co.uk
+<p>
+  <strong>Email Tom:</strong>
+  <a href="#" onclick="openEmail(); return false;">
+    tom<span style="display: none;">REMOVE-THIS-BOT-BLOCKER</span>@tkbriggs.co.uk
+  </a>
 </p>
 
 <script>
@@ -56,7 +59,11 @@ function openEmail() {
   const domain = "tkbriggs.co.uk";
   
   // Real humans trigger the link calculation automatically upon clicking
-  window.location.href = "mailto:" + user + "@" + domain;
+  function openEmail() {
+    const user = "tom";
+    const domain = "tkbriggs.co.uk";
+    location.href = `mailto:${user}@${domain}`;
+}
 }
 </script>
       </div>
