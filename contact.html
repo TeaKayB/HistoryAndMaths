@@ -54,15 +54,9 @@
 
 <script>
 function openEmail() {
-  // The bot only sees these broken individual string elements in your source code
   const user = "tom";
   const domain = "tkbriggs.co.uk";
-  
-  // Real humans trigger the link calculation automatically upon clicking
-  function openEmail() {
-    const user = "tom";
-    const domain = "tkbriggs.co.uk";
-    location.href = `mailto:${user}@${domain}`;
+  location.href = `mailto:${user}@${domain}`;
 }
 </script>
       </div>
