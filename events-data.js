@@ -134,5 +134,13 @@ const HAMIEN_EVENTS = [
     venue: "Nottingham",
     description: "Rob Eastaway will be chairing a symposium in which he and Thomas K. Briggs discuss <i>how history can enrich maths lessons</i>. \n This is one session of many that comprise the 10th British Congress of Mathematics Education, an event which runs from 23rd to 24th October. \n For more information, including price, venue, and booking, visit https://www.bcme.co.uk/ ."
   },
+  {
+    title: "MathsJam Gathering 2026",
+    startDate: "2026-11-14",
+    endDate: "2026-11-15",
+    locationType: "both",
+    venue: "Kents Hill Park Conference Centre, Milton Keynes",
+    description: "The annual MathsJam Gathering isn't a history-specific event, but there are usually a few history-themed talks amongst the 40 or so 5-minute lightning talks that make up the bulk of the weekend. A great place to meet people who like maths recreationally (i.e. as more than just an education or work thing). Also on offer during the weekend: the MathsJam Jam, the Competition Competition, and the MathsJam Bake-Off. For more information including pricing and to book, visit https://www.mathsjam.com/gathering/uk/."
+  },
 
 ];
