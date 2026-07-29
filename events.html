@@ -66,6 +66,17 @@
     .accordion-header.collapsed::after { transform: rotate(-90deg); }
     .accordion-content.collapsed { display: none; }
 
+        /* Sticky Year Headers */
+    .archive-year-group {
+      position: relative; /* Creates a boundary for the sticky header */
+    }
+    .year-header {
+      position: sticky;
+      top: 0; /* Change to match your header height if you have a fixed nav bar, e.g., top: 70px; */
+      z-index: 10;
+      box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.3); /* Adds a subtle drop shadow only while scrolling */
+    }
+
   </style>
   <link rel="icon" type="image/png" href="logo.png">
 
