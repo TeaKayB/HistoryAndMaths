@@ -108,7 +108,7 @@
     <div id="upcoming-events-list" class="card-grid">Loading scheduled events...</div>
 
     <div class="toggle-wrapper">
-      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Past Archive</button>
+      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Events Archive</button>
     </div>
 
     <div id="past-events-section" class="hidden">
@@ -309,7 +309,7 @@
       const btn = document.getElementById('toggle-past-btn');
       if (sect.classList.contains('hidden')) {
         sect.classList.remove('hidden');
-        btn.innerText = 'Hide Archive';
+        btn.innerText = 'Hide Events Archive';
       } else {
         sect.classList.add('hidden');
         btn.innerText = 'Show Archive';
