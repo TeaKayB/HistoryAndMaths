@@ -104,6 +104,13 @@
   <main>
     <h2>Upcoming Events</h2>
     <p>Discover our scheduled network sessions, interactive curriculum workshops, and community panels.</p>
+
+    <div class="bulk-controls" style="margin-bottom: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
+  <button class="filter-btn" style="font-size: 0.85rem; padding: 6px 12px;" onclick="bulkToggleSections('upcoming-events-list', 'expand-all')">Expand All</button>
+  <button class="filter-btn" style="font-size: 0.85rem; padding: 6px 12px;" onclick="bulkToggleSections('upcoming-events-list', 'expand-years')">Expand Years</button>
+  <button class="filter-btn" style="font-size: 0.85rem; padding: 6px 12px;" onclick="bulkToggleSections('upcoming-events-list', 'collapse-all')">Collapse All</button>
+</div>
+
     
     <div id="upcoming-events-list" class="card-grid">Loading scheduled events...</div>
 
@@ -114,6 +121,12 @@
     <div id="past-events-section" class="hidden">
       <h2>Past Archive & Reference Material</h2>
       <p>Review completed network sessions and download attached resource slides or presentation documents.</p>
+      <div class="bulk-controls" style="margin-bottom: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
+  <button class="filter-btn" style="font-size: 0.85rem; padding: 6px 12px;" onclick="bulkToggleSections('past-events-list', 'expand-all')">Expand All</button>
+  <button class="filter-btn" style="font-size: 0.85rem; padding: 6px 12px;" onclick="bulkToggleSections('past-events-list', 'expand-years')">Expand Years</button>
+  <button class="filter-btn" style="font-size: 0.85rem; padding: 6px 12px;" onclick="bulkToggleSections('past-events-list', 'collapse-all')">Collapse All</button>
+</div>
+
       <div id="past-events-list" class="card-grid"></div>
     </div>
   </main>
@@ -303,6 +316,36 @@
       document.getElementById('past-events-list').innerHTML = pastHtml || '<p style="color:var(--text-muted);">No past sessions currently archived.</p>';
     }
 
+        function bulkToggleSections(containerId, actionType) {
+      const container = document.getElementById(containerId);
+      
+      // Select elements cleanly by their specific targeted group assignments
+      const yearHeaders = container.querySelectorAll('.year-header');
+      const yearContents = container.querySelectorAll('[id*="-year-content-"]');
+      const monthHeaders = container.querySelectorAll('.month-header');
+      const monthContents = container.querySelectorAll('[id*="-month-content-"]');
+
+      if (actionType === 'expand-all') {
+        // Force open every single element layer
+        [...yearHeaders, ...monthHeaders].forEach(h => h.classList.remove('collapsed'));
+        [...yearContents, ...monthContents].forEach(c => c.classList.remove('collapsed'));
+      } 
+      else if (actionType === 'collapse-all') {
+        // Force close every single element layer
+        [...yearHeaders, ...monthHeaders].forEach(h => h.classList.add('collapsed'));
+        [...yearContents, ...monthContents].forEach(c => c.classList.add('collapsed'));
+      } 
+      else if (actionType === 'expand-years') {
+        // Open all parent year blocks, but clamp all nested month blocks tightly shut
+        yearHeaders.forEach(h => h.classList.remove('collapsed'));
+        yearContents.forEach(c => c.classList.remove('collapsed'));
+        
+        monthHeaders.forEach(h => h.classList.add('collapsed'));
+        monthContents.forEach(c => c.classList.add('collapsed'));
+      }
+    }
+
+    
     // FIXED: Added missing toggle control function back into the file execution route
     function togglePastEvents() {
       const sect = document.getElementById('past-events-section');
