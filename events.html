@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>History and Mathematics in Education Events | HaMiEN</title>
-  <meta name="description" content="Discover talks, workshops, conferences and training opportunities exploring history and mathematics in education, together with an archive of past events and related resources.">
+  <title>Upcoming Events & Past Archive | The HaMiEN Network</title>
+  <meta name="description" content="Discover upcoming sessions, workshops, and events focused on history and maths in education. Access past reference materials and project presentation slides.">
   <link rel="stylesheet" href="style.css">
   <style>
     /* Card Badges and Labels */
@@ -45,18 +45,39 @@
     .event-card-time { font-weight: bold; color: var(--accent-link); margin: 0 0 8px 0; font-size: 1.05rem; }
     .event-card-desc a { color: var(--accent-link); text-decoration: underline; }
     .event-card-desc a:hover { color: var(--accent); }
+      /* Accordion Headers */
+    .archive-year-group, .archive-month-group { margin-top: 20px; }
+    .accordion-header {
+      background: #272d4233;
+      padding: 10px 15px;
+      margin: 10px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #272d4277;
+      user-select: none;
+    }
+    .year-header { font-size: 1.5rem; color: var(--accent-link); font-weight: bold; }
+    .month-header { font-size: 1.2rem; color: var(--text-muted); margin-left: 15px; }
+    .header-count { font-size: 0.9rem; font-weight: normal; opacity: 0.8; }
+    .accordion-header::after { content: "▼"; font-size: 0.8rem; transition: transform 0.2s; }
+    .accordion-header.collapsed::after { transform: rotate(-90deg); }
+    .accordion-content.collapsed { display: none; }
+
   </style>
-  <link rel="icon" type="image/png" href="hamien-network-logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
 
 </head>
 <body>
   <header>
     <a href="index.html" class="header-brand-link">
       <div class="heading-group">
-        <img src="hamien-network-logo.png" alt="HaMiEN Emblem" class="site-logo">
+        <img src="logo.png" alt="HaMiEN Emblem" class="site-logo">
         <div class="brand-text-wrapper">
           <h1 class="network-title">The <span>H</span>a<span>M</span>i<span>E</span><span>N</span></h1>
-          <span class="network-acronym">HISTORY & MATHEMATICS IN EDUCATION</span>
+          <span class="network-acronym">HISTORY & MATHEMATICS</span>
         </div>
       </div>
     </a>
@@ -71,31 +92,22 @@
 
   <main>
     <h2>Upcoming Events</h2>
-    <p>The History and Mathematics in Education Network (HaMiEN) promotes talks, workshops, conferences and training opportunities exploring connections between history and mathematics in education. Most events are organised by partner organisations, universities, museums and learned societies.</p>
-    <p>Please note:</p>
-    <ul style="color: var(--text-muted); padding-left: 20px; margin-top: 5px; line-height: 1.8;">
-      <li>Unless otherwise stated, events are not organised by the HaMiEN, so please follow the links provided for each activity for booking, information, queries, etc.</li>
-      <li>Some events may require membership of specific organisations to attend, or may have a different pricing structure for members and non-members. Please check thoroughly before booking!</li>
-    </ul>
-  
-    <p>Many events lead to useful teaching materials, presentation slides or research papers, which are added to the <a href="resources.html">Resource Library</a> wherever possible. </p>
-    <p>If you know of a HaMiEN-relevant event or event list that should be here but isn't, <a href="get-involved.html">share it with the community</a> or <a href="contact.html">get in touch</a>.</p>
-    <p>We aim to update past events with links to relevant information such as resources and reports. To find these, scroll to the bottom of this list and click "Show Archive".</p>
+    <p>Discover our scheduled network sessions, interactive curriculum workshops, and community panels.</p>
     
     <div id="upcoming-events-list" class="card-grid">Loading scheduled events...</div>
 
     <div class="toggle-wrapper">
-      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Archive</button>
+      <button class="filter-btn" id="toggle-past-btn" onclick="togglePastEvents()">Show Past Archive</button>
     </div>
-    
+
     <div id="past-events-section" class="hidden">
-      <h2>Past Events and Resources</h2>
-    <p>Our archive preserves details of previous talks, conference sessions and workshops, together with links to presentation slides, papers and other resources wherever available.</p>
+      <h2>Past Archive & Reference Material</h2>
+      <p>Review completed network sessions and download attached resource slides or presentation documents.</p>
       <div id="past-events-list" class="card-grid"></div>
     </div>
+  </main>
 
-
-  <script src="events-data.js"></script>
+        <script src="events-data.js"></script>
   <script>
     function linkify(text) {
       if (!text) return '';
@@ -128,26 +140,103 @@
       return `${start.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}, ${startTimeFormatted} – ${end.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}, ${endTimeFormatted}`;
     }
 
-    // Direct HTML badge container generator based on location types
     function generateLocationBadges(typeStr, venueStr) {
       if (!typeStr) return '';
       const clean = typeStr.toLowerCase().trim();
       const venueText = venueStr ? `: ${venueStr.trim()}` : '';
       
       let badgesHtml = '<div class="badge-row">';
-      
       if (clean === 'online') {
         badgesHtml += `<span class="badge-item badge-online">Online</span>`;
       } else if (clean === 'in-person' || clean === 'in person') {
         badgesHtml += `<span class="badge-item badge-physical">In-Person${venueText}</span>`;
       } else if (clean === 'both' || clean === 'hybrid') {
-        // Appends both individual elements side-by-side for hybrid tracks
         badgesHtml += `<span class="badge-item badge-online">Online</span>`;
         badgesHtml += `<span class="badge-item badge-physical">In-Person${venueText}</span>`;
       }
-      
       badgesHtml += '</div>';
       return badgesHtml;
+    }
+
+    function toggleAccordion(headerElement, contentId) {
+      const content = document.getElementById(contentId);
+      headerElement.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+    }
+
+    function buildNestedHtml(tree, isPastRoute) {
+      let mainHtml = '';
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      const today = new Date();
+      const currentYear = today.getFullYear();
+      const currentMonth = today.getMonth();
+
+      const years = Object.keys(tree).map(Number).sort((a, b) => isPastRoute ? b - a : a - b);
+
+      years.forEach(year => {
+        const yearMonths = tree[year];
+        const months = Object.keys(yearMonths).map(Number).sort((a, b) => isPastRoute ? b - a : a - b);
+        
+        let yearCardsCount = 0;
+        let yearHtmlBuffer = '';
+        let dynamicYearExpanded = false;
+        
+        const yearContentId = `${isPastRoute ? 'past' : 'up'}-year-content-${year}`;
+
+        months.forEach(month => {
+          const cardsArray = yearMonths[month];
+          const matchCount = cardsArray.length;
+          yearCardsCount += matchCount;
+
+          const monthContentId = `${isPastRoute ? 'past' : 'up'}-month-content-${year}-${month}`;
+          
+          const monthDiff = (year - currentYear) * 12 + (month - currentMonth);
+          
+          let isMonthDefaultExpanded = false;
+          if (!isPastRoute) {
+            isMonthDefaultExpanded = (monthDiff >= 0 && monthDiff <= 12);
+          } else {
+            isMonthDefaultExpanded = (monthDiff < 0 && monthDiff >= -12);
+          }
+          
+          if (isMonthDefaultExpanded) {
+            dynamicYearExpanded = true; 
+          }
+
+          let monthCardsHtml = `<div class="card-grid">`;
+          cardsArray.forEach(cardStr => { monthCardsHtml += cardStr; });
+          monthCardsHtml += `</div>`;
+
+          yearHtmlBuffer += `
+            <div class="archive-month-group" style="${isPastRoute ? '' : 'margin-left: 15px;'}">
+              <div class="accordion-header month-header ${isMonthDefaultExpanded ? '' : 'collapsed'}" 
+                   onclick="toggleAccordion(this, '${monthContentId}')">
+                <span>${monthNames[month]} <span class="header-count">(${matchCount} event${matchCount > 1 ? 's' : ''})</span></span>
+              </div>
+              <div id="${monthContentId}" class="accordion-content ${isMonthDefaultExpanded ? '' : 'collapsed'}">
+                ${monthCardsHtml}
+              </div>
+            </div>
+          `;
+        });
+
+        if (yearCardsCount > 0) {
+          mainHtml += `
+            <div class="archive-year-group">
+              <div class="accordion-header year-header ${dynamicYearExpanded ? '' : 'collapsed'}" 
+                   onclick="toggleAccordion(this, '${yearContentId}')">
+                <span>${year} <span class="header-count">(${yearCardsCount} event${yearCardsCount > 1 ? 's' : ''})</span></span>
+              </div>
+              <div id="${yearContentId}" class="accordion-content ${dynamicYearExpanded ? '' : 'collapsed'}">
+                ${yearHtmlBuffer}
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      return mainHtml;
     }
 
     function renderEvents() {
@@ -156,23 +245,20 @@
         return;
       }
 
-      // Grabs the exact localized time right now for precise chronological filtering
       const nowTimestamp = new Date().getTime();
-      let upcomingHtml = '';
-      let pastHtml = '';
+      const upcomingTree = {};
+      const pastTree = {};
 
-      // Sort chronological sequence (soonest event first)
       const sortedEvents = HAMIEN_EVENTS.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
       sortedEvents.forEach(event => {
-        const startTimestamp = new Date(event.startDate).getTime();
+        const startObj = new Date(event.startDate);
+        const startTimestamp = startObj.getTime();
         const timeDisplayString = formatEventDateTime(event.startDate, event.endDate);
         const locationBadgesHtml = generateLocationBadges(event.locationType, event.venue);
         
         const title = event.title || 'Untitled Session';
         const description = linkify(event.description);
-        
-        // CORRECTION: Standard numeric timestamp comparison completely removes format loopholes
         const isPast = startTimestamp < nowTimestamp;
 
         const eventBlock = `
@@ -185,19 +271,28 @@
           </div>
         `;
 
+        const targetYear = startObj.getFullYear();
+        const targetMonth = startObj.getMonth();
+
         if (!isPast) {
-          upcomingHtml += eventBlock;
+          if (!upcomingTree[targetYear]) upcomingTree[targetYear] = {};
+          if (!upcomingTree[targetYear][targetMonth]) upcomingTree[targetYear][targetMonth] = [];
+          upcomingTree[targetYear][targetMonth].push(eventBlock);
         } else {
-          // Places the most recent past event at the very top of the hidden archive stack
-          pastHtml = eventBlock + pastHtml;
+          if (!pastTree[targetYear]) pastTree[targetYear] = {};
+          if (!pastTree[targetYear][targetMonth]) pastTree[targetYear][targetMonth] = [];
+          pastTree[targetYear][targetMonth].unshift(eventBlock);
         }
       });
+
+      const upcomingHtml = buildNestedHtml(upcomingTree, false);
+      const pastHtml = buildNestedHtml(pastTree, true);
 
       document.getElementById('upcoming-events-list').innerHTML = upcomingHtml || '<p style="color:var(--text-muted);">No upcoming sessions currently scheduled.</p>';
       document.getElementById('past-events-list').innerHTML = pastHtml || '<p style="color:var(--text-muted);">No past sessions currently archived.</p>';
     }
 
-
+    // FIXED: Added missing toggle control function back into the file execution route
     function togglePastEvents() {
       const sect = document.getElementById('past-events-section');
       const btn = document.getElementById('toggle-past-btn');
@@ -213,13 +308,7 @@
     window.onload = renderEvents;
   </script>
 
-  <h2>Other Sources of History and Mathematics Education Events</h2>
-    <p>Note: most of the event listings linked to below include events focusing on history <i>and</i> mathematics amongst a broader range of themes.</p>
-    <ul style="color: var(--text-muted); padding-left: 20px; margin-top: 5px; line-height: 1.8;">
-  <li><a href="https://bshm.ac.uk/events/" target="_blank">The British Society for the History of Mathematics (BSHM) events</a></li>
-      <li><a href="https://ima.org.uk/events/" target="_blank">The Institute of Mathematics and its Applications Events</a></li> 
-      <li><a href="https://www.lms.ac.uk/events/calendar" target="_blank">The London Mathematical Society (LMS) Calendar of Events</a></li>
-</ul>
-  </main>
+
+
 </body>
 </html>
