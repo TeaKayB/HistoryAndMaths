@@ -142,5 +142,21 @@ const HAMIEN_EVENTS = [
     venue: "Kents Hill Park Conference Centre, Milton Keynes",
     description: "The annual MathsJam Gathering isn't a history-specific event, but there are usually a few history-themed talks amongst the 40 or so 5-minute lightning talks that make up the bulk of the weekend. A great place to meet people who like maths recreationally (i.e. as more than just an education or work thing). Also on offer during the weekend: the MathsJam Jam, the Competition Competition, and the MathsJam Bake-Off. For more information including pricing and to book, visit https://www.mathsjam.com/gathering/uk/."
   },
+  {
+  title: "British Early Career Mathematicians’ Colloquium 2026",
+  startDate: "2026-06-24",
+  endDate: "2026-06-26",
+  locationType: "in-person",
+  venue: "University of Birmingham, Birmingham, UK",
+  description: "Jason delivered the keynote lecture <i>‘From the Mathematical Past to Human Understanding: Why History Matters’, exploring how the history of mathematics can deepen human, cultural, and educational understanding of the discipline.</i> Abstract: https://web.mat.bham.ac.uk/BYMC/documents/becmc_abstracts2026.pdf"
+  },
+  {
+  title: "ESU-10: 10th European Summer University on the History and Epistemology in Mathematics Education",
+  startDate: "2026-07-20",
+  endDate: "2026-07-24",
+  locationType: "in-person",
+  venue: "Department of Mathematics, University of Aveiro, Aveiro, Portugal",
+  description: "Jason presented <i>‘Bringing the History of Mathematics into the Classroom: A Research-Informed Workshop for Teachers’</i>, co-authored with Tom. The workshop explored practical approaches to integrating historical material into mathematics teaching, informed by classroom research. Abstract: https://esu10.sciencesconf.org/data/pages/main_29.pdf"
+  },
 
 ];
