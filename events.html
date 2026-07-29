@@ -197,7 +197,7 @@
           if (!isPastRoute) {
             isMonthDefaultExpanded = (monthDiff >= 0 && monthDiff <= 12);
           } else {
-            isMonthDefaultExpanded = (monthDiff < 0 && monthDiff >= -12);
+            isMonthDefaultExpanded = (monthDiff <= 0 && monthDiff >= -12);
           }
           
           if (isMonthDefaultExpanded) {
