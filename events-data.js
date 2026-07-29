@@ -84,7 +84,7 @@ const HAMIEN_EVENTS = [
     endDate: "2024-12-17",
     locationType: "in-person",
     venue: "Milton Keynes",
-    description: "This was when Jason and Tom's original project took place, as described in our research paper, <i>Integrating history into mathematics teaching: An empirical study on years 7 & 8 students</i> (available at https://www.tandfonline.com/doi/full/10.1080/26375451.2026.2676448). It was during analysis of the results and discussing the project with teachers that the idea for the HaMiEN began to form!"
+    description: "This was when Jason and Tom's original project took place, as described in our research paper, <i>Integrating history into mathematics teaching: An empirical study on years 7 & 8 students</i> (available at https://www.tandfonline.com/doi/full/10.1080/26375451.2026.2676448 ). It was during analysis of the results and discussing the project with teachers that the idea for the HaMiEN began to form!"
   },
   {
     title: "Research in Progress 2025",
