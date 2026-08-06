@@ -263,13 +263,17 @@
       return mainHtml;
     }
 
-    function renderEvents() {
+        function renderEvents() {
       if (typeof HAMIEN_EVENTS === 'undefined' || HAMIEN_EVENTS.length === 0) {
         document.getElementById('upcoming-events-list').innerText = 'No events currently listed.';
         return;
       }
 
-      const nowTimestamp = new Date().getTime();
+      // Normalize today's date to midnight for accurate day comparison
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const nowTimestamp = today.getTime();
+
       const upcomingTree = {};
       const pastTree = {};
 
@@ -277,13 +281,18 @@
 
       sortedEvents.forEach(event => {
         const startObj = new Date(event.startDate);
-        const startTimestamp = startObj.getTime();
         const timeDisplayString = formatEventDateTime(event.startDate, event.endDate);
         const locationBadgesHtml = generateLocationBadges(event.locationType, event.venue);
         
         const title = event.title || 'Untitled Session';
         const description = linkify(event.description);
-        const isPast = startTimestamp < nowTimestamp;
+
+        // FIX: Check against endDate if it exists; otherwise fallback to startDate
+        const referenceDateStr = event.endDate ? event.endDate : event.startDate;
+        const referenceObj = new Date(referenceDateStr);
+        referenceObj.setHours(0,0,0,0);
+        
+        const isPast = referenceObj.getTime() < nowTimestamp;
 
         const eventBlock = `
           <div class="custom-card">
@@ -315,6 +324,7 @@
       document.getElementById('upcoming-events-list').innerHTML = upcomingHtml || '<p style="color:var(--text-muted);">No upcoming sessions currently scheduled.</p>';
       document.getElementById('past-events-list').innerHTML = pastHtml || '<p style="color:var(--text-muted);">No past sessions currently archived.</p>';
     }
+
 
         function bulkToggleSections(containerId, actionType) {
       const container = document.getElementById(containerId);
