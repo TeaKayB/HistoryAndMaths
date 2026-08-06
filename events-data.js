@@ -174,5 +174,21 @@ const HAMIEN_EVENTS = [
   venue: "MathsWorld UK, Arches, 6 Burrell St, London SE1 0UN",
   description: "A musical performance by the Pseudorandom Ensemble ('one of the UK's top ten mathematically-inspired musical combos'). They're a ~5-piece band that plays original music with lyrics based on mathematical themes (including plenty of history lessons!). The musical style is fairly eclectic, but it tends to hover around the folky end of things. Tom will be operating the music desk for the night. Tickets cost £8 per person (or £5 if you have an annual pass to Maths World UK). For more information and to book tickets visit https://mathsworld.com/events/PseudorandomEnsemble"
   },
+  {
+  title: "InHERited LINES @ MathsWorld UK",
+  startDate: "2026-08-03",
+  endDate: "2026-08-31",
+  locationType: "in-person",
+  venue: "MathsWorld UK, Arches, 6 Burrell St, London SE1 0UN",
+  description: "Samira Mian's 'InHERited LINES' exhibition, which explores Islamic geometric compositions is at Maths World UK until the end of August (free with MathsWorld UK entry). As a bonus, <b>if you can visit on 13th August you can meet the artist herself</b>, as she'll be there from 10am to 5pm. More info here: https://www.samiramian.uk/inheritedlines"
+  },
+  {
+  title: "The Historical Representation of Women in Mathematics @ MathsWorld Lates",
+  startDate: "2026-08-12T18:15",
+  endDate: "2026-08-12T21:00",
+  locationType: "in-person",
+  venue: "MathsWorld UK, Arches, 6 Burrell St, London SE1 0UN",
+  description: "Professor June Barrow-Green will explore the historical representation of women in mathematics, asking questions about how these representations shaped the types of mathematical knowledge that women were able to claim, and what effect they have on modern-day viewers and readers. For a more detailed description, pricing, and to book tickets, visit https://mathsworld.com/events/HistoryOfWomenInMaths"
+  },
 
 ];
