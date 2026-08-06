@@ -166,5 +166,13 @@ const HAMIEN_EVENTS = [
   venue: "Department of Mathematics, University of Aveiro, Aveiro, Portugal",
   description: "Jason presented <i>‘Bringing the History of Mathematics into the Classroom: A Research-Informed Workshop for Teachers’</i>, co-authored with Tom. The workshop explored practical approaches to integrating historical material into mathematics teaching, informed by classroom research. Abstract: https://esu10.sciencesconf.org/data/pages/main_29.pdf"
   },
+  {
+  title: "The Pseudorandom Ensemble @ MathsWorld Lates",
+  startDate: "2026-09-21T18:15",
+  endDate: "2026-09-21T21:00",
+  locationType: "in-person",
+  venue: "MathsWorld UK, Arches, 6 Burrell St, London SE1 0UN",
+  description: "A musical performance by the Pseudorandom Ensemble ('one of the UK's top ten mathematically-inspired musical combos'). They're a ~5-piece band that plays original music with lyrics based on mathematical themes (including plenty of history lessons!). The musical style is fairly eclectic, but it tends to hover around the folky end of things. Tom will be operating the music desk for the night. Tickets cost £8 per person (or £5 if you have an annual pass to Maths World UK). For more information and to book tickets visit https://mathsworld.com/events/PseudorandomEnsemble"
+  },
 
 ];
