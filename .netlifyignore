@@ -1,0 +1,5 @@
+# Ignore a specific file
+# secret-notes.txt
+
+# Ignore a whole folder of old work
+old/
