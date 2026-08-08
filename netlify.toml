@@ -1,3 +1,8 @@
+[build]
+  # This command deletes the old folder on Netlify's server right before publishing
+  command = "rm -rf old"
+  publish = "."
+
 [[plugins]]
 package = "@netlify/plugin-sitemap"
 
