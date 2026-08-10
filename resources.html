@@ -91,7 +91,7 @@
     let currentCat = 'all', currentTag = 'all';
     const clean = s => s ? s.trim().toLowerCase() : '';
 
-    function renderDirectory() {
+        function renderDirectory() {
       const el = document.getElementById('resources-list');
       if (!el || typeof HAMIEN_RESOURCES === 'undefined') return;
 
@@ -105,6 +105,22 @@
         el.innerHTML = `<p style="color:var(--text-muted);padding:15px 0;">No matching assets found.</p>`;
         return;
       }
+
+      el.innerHTML = data.map(item => `
+        <article class="resource-card">
+          <span class="resource-card-type">${item.type === 'papers' ? 'Research Paper & Article' : item.type === 'societies' ? 'Society / Org' : item.type}</span>
+          <h3 class="resource-card-title"><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title || 'Untitled'} ↗</a></h3>
+          <p class="resource-card-desc">${item.description || ''}</p>
+          <div class="card-tags-list">
+            ${(item.tags || []).map(t => {
+              const cleanedTag = clean(t);
+              return `<span class="card-mini-tag" role="button" tabindex="0" onclick="setTag('${cleanedTag}')" onkeydown="if(event.key==='Enter') setTag('${cleanedTag}')" style="cursor:pointer;">#${cleanedTag}</span>`;
+            }).join('')}
+          </div>
+        </article>
+      `).join('');
+    }
+
 
       el.innerHTML = data.map(item => `
         <article class="resource-card">
