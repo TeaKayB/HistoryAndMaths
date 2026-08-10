@@ -173,10 +173,10 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      buildDynamicTagStructures();
-      renderDirectory();
-    });
+        // Execute functions immediately instead of waiting for an event
+    buildDynamicTagStructures();
+    renderDirectory();
+
   </script>
 </body>
 </html>
