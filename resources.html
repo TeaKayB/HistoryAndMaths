@@ -77,80 +77,107 @@
 	<p>* Whilst we prefer to share resources that are free and open, inevitably some are not: many of the books shared fall into this category, for example. In the interests of transparency, where referral links are used, the resources are marked with an asterisk. We always recommend shopping around for the best deals, but should you choose to make a purchase via a referral link listed here, it may contribute to costs relating to running and maintaining this website, and we thank you for it!</p>
   </main>
 
+    <!-- Connect Local Arrays Baseline Script Link -->
+  <script src="resources-data.js"></script>
   <script>
-    // CONFIGURATION: Paste your copied Web App Deployment URL here (ends in /exec)
-    const MACRO_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzmU-Lq2swbDz6l1vmDmPD0eSI46GPdAEmOkgs2QaYukHMHMfiB2JcBH_ZpYirN7CfT/exec';
+    let currentCategoryFilter = 'all';
+    let currentTagFilter = 'all';
+    const cleanTag = str => str.trim().toLowerCase();
 
-    async function loadResources() {
-      try {
-        const response = await fetch(MACRO_ENDPOINT_URL);
-        const items = await response.json();
-        
-        if (!items || items.length === 0) {
-          document.getElementById('resources-grid').innerText = 'No resources found in directory.';
-          return;
-        }
+    function renderDirectory() {
+      const container = document.getElementById('resources-directory-list');
+      if (!container || typeof HAMIEN_RESOURCES === 'undefined') return;
 
-        let htmlString = '';
-        items.forEach(resource => {
-          const title = resource.title || 'Untitled Resource';       
-          const description = resource.description || 'No description provided.'; 
-          const link = resource.link || '#';                        
-          const rawTags = resource.tags || '';                     
-          
-          const tagsArray = rawTags ? String(rawTags).split(/\s+/) : [];
-          const lowerCaseTagsAttr = String(rawTags).toLowerCase().trim();
+      const filteredData = HAMIEN_RESOURCES.filter(item => {
+        const matchesCategory = currentCategoryFilter === 'all' || item.type.toLowerCase() === currentCategoryFilter;
+        const itemTagsCleaned = item.tags.map(cleanTag);
+        return matchesCategory && (currentTagFilter === 'all' || itemTagsCleaned.includes(cleanTag(currentTagFilter)));
+      });
 
-          let tagsHtml = '';
-          tagsArray.forEach(tag => {
-            if (tag.trim()) {
-              tagsHtml += `<span class="card-tag" onclick="triggerTagClick('${tag.toLowerCase().trim()}')">${tag.trim()}</span>`;
-            }
-          });
+      if (filteredData.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted); padding: 15px 0;">No matching assets found.</p>`;
+        return;
+      }
 
-          htmlString += `
-            <div class="custom-card resource-item" data-tags="${lowerCaseTagsAttr}">
-              <h3>${title}</h3>
-              <p>${description}</p>
-              <div style="margin-bottom: 12px;"><a href="${link}" target="_blank">View Resource →</a></div>
-              ${tagsHtml ? `<div class="card-tags-container">${tagsHtml}</div>` : ''}
-            </div>
-          `;
+      container.innerHTML = filteredData.map(item => {
+        const titleText = item.title || 'Untitled Reference';
+        const typeLabel = item.type === 'papers' ? 'Research Paper & Article' : item.type === 'societies' ? 'Society / Org' : item.type;
+        const tagsMarkup = item.tags && item.tags.length > 0 
+          ? `<div class="card-tags-list">${item.tags.map(t => `<span class="card-mini-tag">#${cleanTag(t)}</span>`).join('')}</div>`
+          : '';
+
+        return `
+          <article class="resource-card">
+            <span class="resource-card-type">${typeLabel}</span>
+            <h3 class="resource-card-title">
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer">${titleText} ↗</a>
+            </h3>
+            <p class="resource-card-desc">${item.description || ''}</p>
+            ${tagsMarkup}
+          </article>
+        `;
+      }).join('');
+    }
+
+    function buildDynamicTagStructures() {
+      if (typeof HAMIEN_RESOURCES === 'undefined') return;
+      const tagCounts = {};
+      
+      HAMIEN_RESOURCES.forEach(item => {
+        if (!item.tags) return;
+        item.tags.forEach(rawTag => {
+          const t = cleanTag(rawTag);
+          if (t) tagCounts[t] = (tagCounts[t] || 0) + 1;
         });
+      });
 
-        document.getElementById('resources-grid').innerHTML = htmlString || 'No valid resource entries found.';
+      const popularTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 5);
+      const popularRow = document.getElementById('popular-tags-row');
+      if (popularRow) {
+        popularRow.innerHTML = popularTags.map(tag => {
+          const activeClass = currentTagFilter === tag ? 'active-tag' : '';
+          return `<button class="tag-bubble-btn ${activeClass}" onclick="filterByTag('${tag}')">${tag} (${tagCounts[tag]})</button>`;
+        }).join('');
+      }
 
-      } catch (error) {
-        console.error('Data pipeline connection error:', error);
-        document.getElementById('resources-grid').innerText = 'Failed to stream directory data.';
+      const sortedAlphabeticalTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
+      const footerIndex = document.getElementById('all-tags-index-container');
+      if (footerIndex) {
+        footerIndex.innerHTML = sortedAlphabeticalTags.map((tag, idx) => {
+          const isLast = idx === sortedAlphabeticalTags.length - 1;
+          return `<span class="footer-clickable-tag-link" role="button" tabindex="0" onclick="filterByTag('${tag}')" onkeydown="if(event.key==='Enter') filterByTag('${tag}')">${tag}</span><span style="color:var(--border-color);"> (${tagCounts[tag]})</span>${isLast ? '' : ', '}`;
+        }).join('');
       }
     }
 
-    function filterResources(tag, buttonElement) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      if (buttonElement) {
-        buttonElement.click;
-        buttonElement.classList.add('active');
-      }
+    function filterByCategory(categoryKey) {
+      currentCategoryFilter = categoryKey.toLowerCase();
+      currentTagFilter = 'all';
+      document.querySelectorAll('.bulk-controls .filter-btn').forEach(btn => btn.classList.remove('active'));
+      const targetBtn = document.getElementById(`cat-${currentCategoryFilter === 'all' ? 'all' : currentCategoryFilter}`);
+      if (targetBtn) targetBtn.classList.add('active');
+      buildDynamicTagStructures();
+      renderDirectory();
+    }
 
-      document.querySelectorAll('.resource-item').forEach(card => {
-        const itemTags = card.getAttribute('data-tags').split(/\s+/);
-        if (tag === 'all' || itemTags.includes(tag.toLowerCase().trim())) {
-          card.classList.remove('hidden');
+    function filterByTag(tagValue) {
+      currentTagFilter = currentTagFilter === tagValue ? 'all' : tagValue;
+      buildDynamicTagStructures();
+      renderDirectory();
+      document.querySelectorAll('.tag-bubble-btn').forEach(btn => {
+        if (btn.innerText.startsWith(tagValue) && currentTagFilter !== 'all') {
+          btn.classList.add('active-tag');
         } else {
-          card.classList.add('hidden');
+          btn.classList.remove('active-tag');
         }
       });
     }
 
-    function triggerTagClick(tagTarget) {
-      const cleanTag = tagTarget.toLowerCase().trim();
-      const matchingBtn = document.querySelector(`#main-filter-bar button[data-filter="${cleanTag}"]`);
-      filterResources(cleanTag, matchingBtn);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    window.onload = loadResources;
+    document.addEventListener('DOMContentLoaded', () => {
+      buildDynamicTagStructures();
+      renderDirectory();
+    });
   </script>
 </body>
 </html>
+
