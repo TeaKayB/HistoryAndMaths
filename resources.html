@@ -77,67 +77,80 @@
 	<p>* Whilst we prefer to share resources that are free and open, inevitably some are not: many of the books shared fall into this category, for example. In the interests of transparency, where referral links are used, the resources are marked with an asterisk. We always recommend shopping around for the best deals, but should you choose to make a purchase via a referral link listed here, it may contribute to costs relating to running and maintaining this website, and we thank you for it!</p>
   </main>
 
-    <script src="resources-data.js"></script>
   <script>
-    let currentCat = 'all', currentTag = 'all';
-    const clean = s => s.trim().toLowerCase();
+    // CONFIGURATION: Paste your copied Web App Deployment URL here (ends in /exec)
+    const MACRO_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzmU-Lq2swbDz6l1vmDmPD0eSI46GPdAEmOkgs2QaYukHMHMfiB2JcBH_ZpYirN7CfT/exec';
 
-    function renderDirectory() {
-      const el = document.getElementById('resources-list');
-      if (!el || typeof HAMIEN_RESOURCES === 'undefined') return;
+    async function loadResources() {
+      try {
+        const response = await fetch(MACRO_ENDPOINT_URL);
+        const items = await response.json();
+        
+        if (!items || items.length === 0) {
+          document.getElementById('resources-grid').innerText = 'No resources found in directory.';
+          return;
+        }
 
-      const data = HAMIEN_RESOURCES.filter(item => {
-        const matchCat = currentCat === 'all' || item.type.toLowerCase() === currentCat;
-        return matchCat && (currentTag === 'all' || item.tags.map(clean).includes(clean(currentTag)));
-      });
+        let htmlString = '';
+        items.forEach(resource => {
+          const title = resource.title || 'Untitled Resource';       
+          const description = resource.description || 'No description provided.'; 
+          const link = resource.link || '#';                        
+          const rawTags = resource.tags || '';                     
+          
+          const tagsArray = rawTags ? String(rawTags).split(/\s+/) : [];
+          const lowerCaseTagsAttr = String(rawTags).toLowerCase().trim();
 
-      if (!data.length) {
-        el.innerHTML = `<p style="color:var(--text-muted);padding:15px 0;">No matching assets found.</p>`;
-        return;
+          let tagsHtml = '';
+          tagsArray.forEach(tag => {
+            if (tag.trim()) {
+              tagsHtml += `<span class="card-tag" onclick="triggerTagClick('${tag.toLowerCase().trim()}')">${tag.trim()}</span>`;
+            }
+          });
+
+          htmlString += `
+            <div class="custom-card resource-item" data-tags="${lowerCaseTagsAttr}">
+              <h3>${title}</h3>
+              <p>${description}</p>
+              <div style="margin-bottom: 12px;"><a href="${link}" target="_blank">View Resource →</a></div>
+              ${tagsHtml ? `<div class="card-tags-container">${tagsHtml}</div>` : ''}
+            </div>
+          `;
+        });
+
+        document.getElementById('resources-grid').innerHTML = htmlString || 'No valid resource entries found.';
+
+      } catch (error) {
+        console.error('Data pipeline connection error:', error);
+        document.getElementById('resources-grid').innerText = 'Failed to stream directory data.';
+      }
+    }
+
+    function filterResources(tag, buttonElement) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      if (buttonElement) {
+        buttonElement.click;
+        buttonElement.classList.add('active');
       }
 
-      el.innerHTML = data.map(item => `
-        <article class="resource-card">
-          <span class="resource-card-type">${item.type === 'papers' ? 'Research Paper & Article' : item.type === 'societies' ? 'Society / Org' : item.type}</span>
-          <h3 class="resource-card-title"><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title || 'Untitled'} ↗</a></h3>
-          <p class="resource-card-desc">${item.description || ''}</p>
-          <div class="card-tags-list" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
-            ${(item.tags || []).map(t => `<span class="card-mini-tag" style="font-size:0.75rem; color:var(--text-muted); background:#272d4208; padding:1px 6px; border-radius:4px; border:1px dashed #272d4222;">#${clean(t)}</span>`).join('')}
-          </div>
-        </article>
-      `).join('');
+      document.querySelectorAll('.resource-item').forEach(card => {
+        const itemTags = card.getAttribute('data-tags').split(/\s+/);
+        if (tag === 'all' || itemTags.includes(tag.toLowerCase().trim())) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
     }
 
-    function buildTags() {
-      if (typeof HAMIEN_RESOURCES === 'undefined') return;
-      const counts = {};
-      HAMIEN_RESOURCES.forEach(item => (item.tags || []).forEach(t => { const c = clean(t); if (c) counts[c] = (counts[c] || 0) + 1; }));
-
-      const pop = Object.keys(counts).sort((a,b) => counts[b] - counts[a]).slice(0,5);
-      const popRow = document.getElementById('popular-tags-list');
-      if (popRow) popRow.innerHTML = pop.map(t => `<button class="tag-bubble-btn ${currentTag===t?'active-tag':''}" onclick="setTag('${t}')">${t} (${counts[t]})</button>`).join('');
-
-      const alpha = Object.keys(counts).sort((a,b) => a.localeCompare(b));
-      const foot = document.getElementById('all-tags-list');
-      if (foot) foot.innerHTML = alpha.map((t, i) => `<span class="footer-clickable-tag-link" role="button" tabindex="0" onclick="setTag('${t}')" onkeydown="if(event.key==='Enter') setTag('${t}')" style="color:var(--accent-link); text-decoration:none; font-weight:500; cursor:pointer;">${t}</span><span style="color:var(--text-muted);"> (${counts[t]})</span>${i===alpha.length-1?'':', '}`).join('');
+    function triggerTagClick(tagTarget) {
+      const cleanTag = tagTarget.toLowerCase().trim();
+      const matchingBtn = document.querySelector(`#main-filter-bar button[data-filter="${cleanTag}"]`);
+      filterResources(cleanTag, matchingBtn);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function filterByCategory(cat) {
-      currentCat = cat.toLowerCase(); currentTag = 'all';
-      document.querySelectorAll('.bulk-controls .filter-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.getElementById(`cat-${currentCat}`);
-      if (btn) btn.classList.add('active');
-      buildTags(); renderDirectory();
-    }
-
-    function setTag(tag) {
-      currentTag = currentTag === tag ? 'all' : tag;
-      buildTags(); renderDirectory();
-      document.querySelectorAll('.tag-bubble-btn').forEach(b => b.classList.toggle('active-tag', b.innerText.startsWith(tag) && currentTag !== 'all'));
-    }
-
-    buildTags();
-    renderDirectory();
+    window.onload = loadResources;
   </script>
 </body>
 </html>
