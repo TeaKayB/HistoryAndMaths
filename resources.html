@@ -85,7 +85,7 @@
     const cleanTag = str => str.trim().toLowerCase();
 
     function renderDirectory() {
-      const container = document.getElementById('resources-directory-list');
+      const container = document.getElementById('resources-list');
       if (!container || typeof HAMIEN_RESOURCES === 'undefined') return;
 
       const filteredData = HAMIEN_RESOURCES.filter(item => {
