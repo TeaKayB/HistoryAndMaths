@@ -4,38 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>History and Mathematics in Education Resources | HaMiEN</title>
-  <meta name="description" content="Explore curated teaching resources linking history and mathematics, including books, research papers, websites, blogs and museum learning resources.">
-  <meta name="keywords" content="history of mathematics resources, cross-curricular maths lessons, mathematics in history lessons, interdisciplinary education assets">
+  <meta name="description" content="Explore HaMiEN's growing collaborative library of books, research papers, websites, blogs and professional organisations.">
   <link rel="stylesheet" href="style.css">
   <style>
-    .card-tags-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px solid var(--border-color);
-    }
-    .card-tag {
-      background: #272d4222;
-      color: var(--accent);
-      border: 1px solid var(--border-color);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-transform: capitalize;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .card-tag:hover {
-      background: var(--accent);
-      color: #0f121b;
-      border-color: var(--accent);
-    }
+    /* Tag element styling rules */
+    .filter-section-wrapper { margin: 20px 0; }
+    .tag-container-label { font-size: 0.95rem; font-weight: bold; margin-bottom: 6px; }
+    .inline-tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag-bubble-btn { background: #272d4215; color: var(--text-muted); border: 1px solid #272d4233; padding: 4px 10px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; }
+    .tag-bubble-btn:hover { background: var(--accent-link); color: #fff; }
+    .tag-bubble-btn.active-tag { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .resource-card { background: #272d4211; border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; margin-bottom: 15px; }
+    .resource-card-type { display: inline-block; padding: 3px 8px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; background: #272d4222; border-radius: 4px; color: var(--accent-link); }
+    .resource-card-title a { color: var(--accent-link); text-decoration: underline; font-size: 1.25rem; font-weight: 700; }
+    .resource-card-title a:hover { color: var(--accent); }
+    .resource-card-desc { color: var(--text-muted); margin-top: 8px; }
+    .card-tags-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .card-mini-tag { font-size: 0.75rem; color: var(--text-muted); background: #272d4208; padding: 1px 6px; border-radius: 4px; border: 1px dashed #272d4222; }
+    .all-tags-footer-block { margin-top: 40px; padding: 20px; background: #272d4205; border-top: 2px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; line-height: 1.8; }
+    .footer-clickable-tag-link { color: var(--accent-link); text-decoration: none; font-weight: 500; cursor: pointer; }
+    .footer-clickable-tag-link:hover { text-decoration: underline; color: var(--accent); }
   </style>
   <link rel="icon" type="image/png" href="hamien-network-logo.png">
-
 </head>
 <body>
   <header>
@@ -59,38 +49,56 @@
 
   <main>
     <h2>Network Resources</h2>
-<p>Explore HaMiEN's growing collaborative library of books, research papers, websites, blogs and professional organisations that explore connections between history and mathematics in education. Resources are recommended by members of the network or selected because of their value for teachers, museum educators and researchers.</p>
-<h3>Browse by resource type</h3>
-<p>Use the filters below to browse resources by category, or explore the full collection.</p>  
-	<p>Are you aware of an excellent resource that HaMiEN members should know about? Share it with <a href="get-involved.html">the community</a> or <a href="contact.html">get in touch</a>.</p>
+    <p>Explore HaMiEN's growing collaborative library of books, research papers, websites, blogs and professional organisations that explore connections between history and mathematics in education. Resources are recommended by members of the network or selected because of their value for teachers, museum educators and researchers.</p>
 
-    <div class="filter-container" id="main-filter-bar">
-      <button class="filter-btn active" data-filter="all" onclick="filterResources('all', this)">All Resources</button>
-	  <button class="filter-btn" data-filter="blogs" onclick="filterResources('blogs', this)">Blogs</button>
-	  <button class="filter-btn" data-filter="books" onclick="filterResources('books', this)">Books</button>
-	  <button class="filter-btn" data-filter="papers" onclick="filterResources('papers', this)">Research Papers & Articles</button>
-	  <button class="filter-btn" data-filter="societies" onclick="filterResources('societies', this)">Societies & Professional orgs</button>
-      <button class="filter-btn" data-filter="websites" onclick="filterResources('websites', this)">Websites</button>
+    <h3>Browse by resource type</h3>
+    <p>Use the filters below to browse resources by category, or explore the full collection.</p>
+
+    <div class="filter-section-wrapper">
+      <div class="bulk-controls" style="margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="filter-btn active" id="cat-all" onclick="filterByCategory('all')">All Resources</button>
+        <button class="filter-btn" id="cat-blogs" onclick="filterByCategory('blogs')">Blogs</button>
+        <button class="filter-btn" id="cat-books" onclick="filterByCategory('books')">Books</button>
+        <button class="filter-btn" id="cat-papers" onclick="filterByCategory('papers')">Research Papers &amp; Articles</button>
+        <button class="filter-btn" id="cat-societies" onclick="filterByCategory('societies')">Societies &amp; Professional orgs</button>
+        <button class="filter-btn" id="cat-websites" onclick="filterByCategory('websites')">Websites</button>
+      </div>
     </div>
 
-    <div class="card-grid" id="resources-grid">Loading directory data...</div>
-	<p>* Whilst we prefer to share resources that are free and open, inevitably some are not: many of the books shared fall into this category, for example. In the interests of transparency, where referral links are used, the resources are marked with an asterisk. We always recommend shopping around for the best deals, but should you choose to make a purchase via a referral link listed here, it may contribute to costs relating to running and maintaining this website, and we thank you for it!</p>
+    <!-- Popular Tags Row Placement -->
+    <div class="filter-section-wrapper">
+      <div class="tag-container-label">Popular tags:</div>
+      <div class="inline-tag-row" id="popular-tags-list">Calculating...</div>
+    </div>
+
+    <!-- Main Output Directory Grid Box -->
+    <div id="resources-list" class="card-grid">Loading directory data...</div>
+
+    <!-- All Tags Footnote Block Placement -->
+    <div class="all-tags-footer-block">
+      <div class="tag-container-label" style="margin-bottom: 8px;">All tags:</div>
+      <div id="all-tags-list">Compiling...</div>
+    </div>
+
+    <p style="margin-top: 40px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+      * Whilst we prefer to share resources that are free and open, inevitably some are not: many of the books shared fall into this category, for example. In the interests of transparency, where referral links are used, the resources are marked with an asterisk. We always recommend shopping around for the best deals, but should you choose to make a purchase via a referral link listed here, it may contribute to costs relating to running and maintaining this website, and we thank you for it!
+    </p>
   </main>
 
-  <!-- Connect Local Arrays Baseline Script Link -->
-      <script src="resources-data.js"></script>
+  <!-- Connect Local Arrays Dataset Script Link -->
+  <script src="resources-data.js"></script>
   <script>
     let currentCat = 'all', currentTag = 'all';
-    const clean = s => s.trim().toLowerCase();
+    const clean = s => s ? s.trim().toLowerCase() : '';
 
     function renderDirectory() {
-      // 1. Explicitly targets your main list container ID
-      const el = document.getElementById('resources-directory-list');
+      const el = document.getElementById('resources-list');
       if (!el || typeof HAMIEN_RESOURCES === 'undefined') return;
 
       const data = HAMIEN_RESOURCES.filter(item => {
         const matchCat = currentCat === 'all' || item.type.toLowerCase() === currentCat;
-        return matchCat && (currentTag === 'all' || item.tags.map(clean).includes(clean(currentTag)));
+        const itemTags = (item.tags || []).map(clean);
+        return matchCat && (currentTag === 'all' || itemTags.includes(clean(currentTag)));
       });
 
       if (!data.length) {
@@ -103,9 +111,7 @@
           <span class="resource-card-type">${item.type === 'papers' ? 'Research Paper & Article' : item.type === 'societies' ? 'Society / Org' : item.type}</span>
           <h3 class="resource-card-title"><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title || 'Untitled'} ↗</a></h3>
           <p class="resource-card-desc">${item.description || ''}</p>
-          <div class="card-tags-list" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
-            ${(item.tags || []).map(t => `<span class="card-mini-tag" style="font-size:0.75rem; color:var(--text-muted); background:#272d4208; padding:1px 6px; border-radius:4px; border:1px dashed #272d4222;">#${clean(t)}</span>`).join('')}
-          </div>
+          <div class="card-tags-list">${(item.tags || []).map(t => `<span class="card-mini-tag">#${clean(t)}</span>`).join('')}</div>
         </article>
       `).join('');
     }
@@ -115,15 +121,13 @@
       const counts = {};
       HAMIEN_RESOURCES.forEach(item => (item.tags || []).forEach(t => { const c = clean(t); if (c) counts[c] = (counts[c] || 0) + 1; }));
 
-      // 2. Explicitly targets your popular tags row ID
       const pop = Object.keys(counts).sort((a,b) => counts[b] - counts[a]).slice(0,5);
       const popRow = document.getElementById('popular-tags-list');
       if (popRow) popRow.innerHTML = pop.map(t => `<button class="tag-bubble-btn ${currentTag===t?'active-tag':''}" onclick="setTag('${t}')">${t} (${counts[t]})</button>`).join('');
 
-      // 3. Explicitly targets your footer alphabetical directory index container ID
       const alpha = Object.keys(counts).sort((a,b) => a.localeCompare(b));
-      const foot = document.getElementById('all-tags-index-container');
-      if (foot) foot.innerHTML = alpha.map((t, i) => `<span class="footer-clickable-tag-link" role="button" tabindex="0" onclick="setTag('${t}')" onkeydown="if(event.key==='Enter') setTag('${t}')" style="color:var(--accent-link); text-decoration:none; font-weight:500; cursor:pointer;">${t}</span><span style="color:var(--text-muted);"> (${counts[t]})</span>${i===alpha.length-1?'':', '}`).join('');
+      const foot = document.getElementById('all-tags-list');
+      if (foot) foot.innerHTML = alpha.map((t, i) => `<span class="footer-clickable-tag-link" role="button" tabindex="0" onclick="setTag('${t}')" onkeydown="if(event.key==='Enter') setTag('${t}')">${t}</span><span> (${counts[t]})</span>${i===alpha.length-1?'':', '}`).join('');
     }
 
     function filterByCategory(cat) {
@@ -137,15 +141,12 @@
     function setTag(tag) {
       currentTag = currentTag === tag ? 'all' : tag;
       buildTags(); renderDirectory();
-      document.querySelectorAll('.tag-bubble-btn').forEach(b => {
-        b.classList.toggle('active-tag', b.innerText.startsWith(tag) && currentTag !== 'all');
-      });
+      document.querySelectorAll('.tag-bubble-btn').forEach(b => b.classList.toggle('active-tag', b.innerText.startsWith(tag) && currentTag !== 'all'));
     }
 
-    // Force engine execution to populate variables immediately on script evaluation
+    // Force rendering variables immediately upon file evaluation
     buildTags();
     renderDirectory();
   </script>
 </body>
 </html>
-
