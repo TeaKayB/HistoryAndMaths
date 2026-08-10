@@ -78,76 +78,74 @@
   </main>
 
   <!-- Connect Local Arrays Baseline Script Link -->
-  <script src="resources-data.js"></script>
+    <script src="resources-data.js"></script>
   <script>
-    let activeCat = 'all', activeTag = 'all';
+    let currentCat = 'all', currentTag = 'all';
     const clean = s => s.trim().toLowerCase();
 
-    function drawDirectory() {
-      const box = document.getElementById('cards-container');
-      if (!box || typeof HAMIEN_RESOURCES === 'undefined') return;
+    function renderDirectory() {
+      // 1. Target your exact main list container ID
+      const el = document.getElementById('resources-directory-list');
+      if (!el || typeof HAMIEN_RESOURCES === 'undefined') return;
 
-      const items = HAMIEN_RESOURCES.filter(entry => {
-        const catMatch = activeCat === 'all' || entry.type.toLowerCase() === activeCat;
-        const tagMatch = activeTag === 'all' || entry.tags.map(clean).includes(clean(activeTag));
-        return catMatch && tagMatch;
+      const data = HAMIEN_RESOURCES.filter(item => {
+        const matchCat = currentCat === 'all' || item.type.toLowerCase() === currentCat;
+        return matchCat && (currentTag === 'all' || item.tags.map(clean).includes(clean(currentTag)));
       });
 
-      if (!items.length) {
-        box.innerHTML = `<p style="color: var(--text-muted);">No resources found matching this selection.</p>`;
+      if (!data.length) {
+        el.innerHTML = `<p style="color:var(--text-muted);padding:15px 0;">No matching assets found.</p>`;
         return;
       }
 
-      box.innerHTML = items.map(entry => `
-        <article class="res-card">
-          <span class="res-type">${entry.type}</span>
-          <h3 class="res-title"><a href="${entry.link}" target="_blank">${entry.title || 'Untitled'} ↗</a></h3>
-          <p class="res-desc">${entry.description || ''}</p>
+      el.innerHTML = data.map(item => `
+        <article class="resource-card">
+          <span class="resource-card-type">${item.type === 'papers' ? 'Research Paper & Article' : item.type === 'societies' ? 'Society / Org' : item.type}</span>
+          <h3 class="resource-card-title"><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title || 'Untitled'} ↗</a></h3>
+          <p class="resource-card-desc">${item.description || ''}</p>
+          <div class="card-tags-list" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
+            ${(item.tags || []).map(t => `<span class="card-mini-tag" style="font-size:0.75rem; color:var(--text-muted); background:#272d4208; padding:1px 6px; border-radius:4px; border:1px dashed #272d4222;">#${clean(t)}</span>`).join('')}
+          </div>
         </article>
       `).join('');
     }
 
-    function drawTags() {
+    function buildTags() {
       if (typeof HAMIEN_RESOURCES === 'undefined') return;
-      const index = {};
-      
-      HAMIEN_RESOURCES.forEach(entry => (entry.tags || []).forEach(t => {
-        const name = clean(t);
-        if (name) index[name] = (index[name] || 0) + 1;
-      }));
+      const counts = {};
+      HAMIEN_RESOURCES.forEach(item => (item.tags || []).forEach(t => { const c = clean(t); if (c) counts[c] = (counts[c] || 0) + 1; }));
 
-      // Calculate Top 5
-      const topFive = Object.keys(index).sort((a,b) => index[b] - index[a]).slice(0,5);
-      const topBox = document.getElementById('pop-tags-container');
-      if (topBox) topBox.innerHTML = topFive.map(t => `
-        <button class="tag-btn ${activeTag === t ? 'active-tag' : ''}" onclick="toggleTag('${t}')">${t} (${index[t]})</button>
-      `).join('');
+      // 2. Target your exact popular tags container ID
+      const pop = Object.keys(counts).sort((a,b) => counts[b] - counts[a]).slice(0,5);
+      const popRow = document.getElementById('popular-tags-list');
+      if (popRow) popRow.innerHTML = pop.map(t => `<button class="tag-bubble-btn ${currentTag===t?'active-tag':''}" onclick="setTag('${t}')">${t} (${counts[t]})</button>`).join('');
 
-      // Alphabetical Footer
-      const alphaList = Object.keys(index).sort((a,b) => a.localeCompare(b));
-      const footBox = document.getElementById('all-tags-container');
-      if (footBox) footBox.innerHTML = alphaList.map((t, idx) => `
-        <span class="tag-link" role="button" onclick="toggleTag('${t}')">${t}</span><span> (${index[t]})</span>${idx === alphaList.length - 1 ? '' : ', '}
-      `).join('');
+      // 3. Target your exact footer container ID
+      const alpha = Object.keys(counts).sort((a,b) => a.localeCompare(b));
+      const foot = document.getElementById('all-tags-index-container');
+      if (foot) foot.innerHTML = alpha.map((t, i) => `<span class="footer-clickable-tag-link" role="button" tabindex="0" onclick="setTag('${t}')" onkeydown="if(event.key==='Enter') setTag('${t}')" style="color:var(--accent-link); text-decoration:none; font-weight:500; cursor:pointer;">${t}</span><span style="color:var(--text-muted);"> (${counts[t]})</span>${i===alpha.length-1?'':', '}`).join('');
     }
 
-    function setCat(catName) {
-      activeCat = catName.toLowerCase();
-      activeTag = 'all';
+    function filterByCategory(cat) {
+      currentCat = cat.toLowerCase(); currentTag = 'all';
       document.querySelectorAll('.bulk-controls .filter-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = document.getElementById(`btn-${activeCat}`);
-      if (activeBtn) activeBtn.add('active');
-      drawTags(); drawDirectory();
+      const btn = document.getElementById(`cat-${currentCat}`);
+      if (btn) btn.classList.add('active');
+      buildTags(); renderDirectory();
     }
 
-    function toggleTag(tagName) {
-      activeTag = activeTag === tagName ? 'all' : tagName;
-      drawTags(); drawDirectory();
+    function setTag(tag) {
+      currentTag = currentTag === tag ? 'all' : tag;
+      buildTags(); renderDirectory();
+      document.querySelectorAll('.tag-bubble-btn').forEach(b => {
+        // Toggle the active class if the button text matches the selected tag
+        b.classList.toggle('active-tag', b.innerText.startsWith(tag) && currentTag !== 'all');
+      });
     }
 
-    // Force run immediately on load
-    drawTags();
-    drawDirectory();
+    // Initialize immediately using your layout targets
+    buildTags();
+    renderDirectory();
   </script>
 </body>
 </html>
