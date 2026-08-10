@@ -77,80 +77,77 @@
 	<p>* Whilst we prefer to share resources that are free and open, inevitably some are not: many of the books shared fall into this category, for example. In the interests of transparency, where referral links are used, the resources are marked with an asterisk. We always recommend shopping around for the best deals, but should you choose to make a purchase via a referral link listed here, it may contribute to costs relating to running and maintaining this website, and we thank you for it!</p>
   </main>
 
+  <!-- Connect Local Arrays Baseline Script Link -->
+  <script src="resources-data.js"></script>
   <script>
-    // CONFIGURATION: Paste your copied Web App Deployment URL here (ends in /exec)
-    const MACRO_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzmU-Lq2swbDz6l1vmDmPD0eSI46GPdAEmOkgs2QaYukHMHMfiB2JcBH_ZpYirN7CfT/exec';
+    let activeCat = 'all', activeTag = 'all';
+    const clean = s => s.trim().toLowerCase();
 
-    async function loadResources() {
-      try {
-        const response = await fetch(MACRO_ENDPOINT_URL);
-        const items = await response.json();
-        
-        if (!items || items.length === 0) {
-          document.getElementById('resources-grid').innerText = 'No resources found in directory.';
-          return;
-        }
+    function drawDirectory() {
+      const box = document.getElementById('cards-container');
+      if (!box || typeof HAMIEN_RESOURCES === 'undefined') return;
 
-        let htmlString = '';
-        items.forEach(resource => {
-          const title = resource.title || 'Untitled Resource';       
-          const description = resource.description || 'No description provided.'; 
-          const link = resource.link || '#';                        
-          const rawTags = resource.tags || '';                     
-          
-          const tagsArray = rawTags ? String(rawTags).split(/\s+/) : [];
-          const lowerCaseTagsAttr = String(rawTags).toLowerCase().trim();
-
-          let tagsHtml = '';
-          tagsArray.forEach(tag => {
-            if (tag.trim()) {
-              tagsHtml += `<span class="card-tag" onclick="triggerTagClick('${tag.toLowerCase().trim()}')">${tag.trim()}</span>`;
-            }
-          });
-
-          htmlString += `
-            <div class="custom-card resource-item" data-tags="${lowerCaseTagsAttr}">
-              <h3>${title}</h3>
-              <p>${description}</p>
-              <div style="margin-bottom: 12px;"><a href="${link}" target="_blank">View Resource →</a></div>
-              ${tagsHtml ? `<div class="card-tags-container">${tagsHtml}</div>` : ''}
-            </div>
-          `;
-        });
-
-        document.getElementById('resources-grid').innerHTML = htmlString || 'No valid resource entries found.';
-
-      } catch (error) {
-        console.error('Data pipeline connection error:', error);
-        document.getElementById('resources-grid').innerText = 'Failed to stream directory data.';
-      }
-    }
-
-    function filterResources(tag, buttonElement) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      if (buttonElement) {
-        buttonElement.click;
-        buttonElement.classList.add('active');
-      }
-
-      document.querySelectorAll('.resource-item').forEach(card => {
-        const itemTags = card.getAttribute('data-tags').split(/\s+/);
-        if (tag === 'all' || itemTags.includes(tag.toLowerCase().trim())) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
+      const items = HAMIEN_RESOURCES.filter(entry => {
+        const catMatch = activeCat === 'all' || entry.type.toLowerCase() === activeCat;
+        const tagMatch = activeTag === 'all' || entry.tags.map(clean).includes(clean(activeTag));
+        return catMatch && tagMatch;
       });
+
+      if (!items.length) {
+        box.innerHTML = `<p style="color: var(--text-muted);">No resources found matching this selection.</p>`;
+        return;
+      }
+
+      box.innerHTML = items.map(entry => `
+        <article class="res-card">
+          <span class="res-type">${entry.type}</span>
+          <h3 class="res-title"><a href="${entry.link}" target="_blank">${entry.title || 'Untitled'} ↗</a></h3>
+          <p class="res-desc">${entry.description || ''}</p>
+        </article>
+      `).join('');
     }
 
-    function triggerTagClick(tagTarget) {
-      const cleanTag = tagTarget.toLowerCase().trim();
-      const matchingBtn = document.querySelector(`#main-filter-bar button[data-filter="${cleanTag}"]`);
-      filterResources(cleanTag, matchingBtn);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function drawTags() {
+      if (typeof HAMIEN_RESOURCES === 'undefined') return;
+      const index = {};
+      
+      HAMIEN_RESOURCES.forEach(entry => (entry.tags || []).forEach(t => {
+        const name = clean(t);
+        if (name) index[name] = (index[name] || 0) + 1;
+      }));
+
+      // Calculate Top 5
+      const topFive = Object.keys(index).sort((a,b) => index[b] - index[a]).slice(0,5);
+      const topBox = document.getElementById('pop-tags-container');
+      if (topBox) topBox.innerHTML = topFive.map(t => `
+        <button class="tag-btn ${activeTag === t ? 'active-tag' : ''}" onclick="toggleTag('${t}')">${t} (${index[t]})</button>
+      `).join('');
+
+      // Alphabetical Footer
+      const alphaList = Object.keys(index).sort((a,b) => a.localeCompare(b));
+      const footBox = document.getElementById('all-tags-container');
+      if (footBox) footBox.innerHTML = alphaList.map((t, idx) => `
+        <span class="tag-link" role="button" onclick="toggleTag('${t}')">${t}</span><span> (${index[t]})</span>${idx === alphaList.length - 1 ? '' : ', '}
+      `).join('');
     }
 
-    window.onload = loadResources;
+    function setCat(catName) {
+      activeCat = catName.toLowerCase();
+      activeTag = 'all';
+      document.querySelectorAll('.bulk-controls .filter-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-${activeCat}`);
+      if (activeBtn) activeBtn.add('active');
+      drawTags(); drawDirectory();
+    }
+
+    function toggleTag(tagName) {
+      activeTag = activeTag === tagName ? 'all' : tagName;
+      drawTags(); drawDirectory();
+    }
+
+    // Force run immediately on load
+    drawTags();
+    drawDirectory();
   </script>
 </body>
 </html>
