@@ -141,7 +141,7 @@
       }
 
       const sortedAlphabeticalTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
-      const footerIndex = document.getElementById('all-tags-index-container');
+      const footerIndex = document.getElementById('all-tags-list');
       if (footerIndex) {
         footerIndex.innerHTML = sortedAlphabeticalTags.map((tag, idx) => {
           const isLast = idx === sortedAlphabeticalTags.length - 1;
