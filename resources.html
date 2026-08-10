@@ -78,13 +78,13 @@
   </main>
 
   <!-- Connect Local Arrays Baseline Script Link -->
-    <script src="resources-data.js"></script>
+      <script src="resources-data.js"></script>
   <script>
     let currentCat = 'all', currentTag = 'all';
     const clean = s => s.trim().toLowerCase();
 
     function renderDirectory() {
-      // 1. Target your exact main list container ID
+      // 1. Explicitly targets your main list container ID
       const el = document.getElementById('resources-directory-list');
       if (!el || typeof HAMIEN_RESOURCES === 'undefined') return;
 
@@ -115,12 +115,12 @@
       const counts = {};
       HAMIEN_RESOURCES.forEach(item => (item.tags || []).forEach(t => { const c = clean(t); if (c) counts[c] = (counts[c] || 0) + 1; }));
 
-      // 2. Target your exact popular tags container ID
+      // 2. Explicitly targets your popular tags row ID
       const pop = Object.keys(counts).sort((a,b) => counts[b] - counts[a]).slice(0,5);
       const popRow = document.getElementById('popular-tags-list');
       if (popRow) popRow.innerHTML = pop.map(t => `<button class="tag-bubble-btn ${currentTag===t?'active-tag':''}" onclick="setTag('${t}')">${t} (${counts[t]})</button>`).join('');
 
-      // 3. Target your exact footer container ID
+      // 3. Explicitly targets your footer alphabetical directory index container ID
       const alpha = Object.keys(counts).sort((a,b) => a.localeCompare(b));
       const foot = document.getElementById('all-tags-index-container');
       if (foot) foot.innerHTML = alpha.map((t, i) => `<span class="footer-clickable-tag-link" role="button" tabindex="0" onclick="setTag('${t}')" onkeydown="if(event.key==='Enter') setTag('${t}')" style="color:var(--accent-link); text-decoration:none; font-weight:500; cursor:pointer;">${t}</span><span style="color:var(--text-muted);"> (${counts[t]})</span>${i===alpha.length-1?'':', '}`).join('');
@@ -138,14 +138,14 @@
       currentTag = currentTag === tag ? 'all' : tag;
       buildTags(); renderDirectory();
       document.querySelectorAll('.tag-bubble-btn').forEach(b => {
-        // Toggle the active class if the button text matches the selected tag
         b.classList.toggle('active-tag', b.innerText.startsWith(tag) && currentTag !== 'all');
       });
     }
 
-    // Initialize immediately using your layout targets
+    // Force engine execution to populate variables immediately on script evaluation
     buildTags();
     renderDirectory();
   </script>
 </body>
 </html>
+
