@@ -82,5 +82,12 @@ const HAMIEN_RESOURCES = [
     link: "https://nrich.maths.org/history-mathematics",
     type: "websites",
     tags: ["websites", " curriculum", " enrichment", " Cambridge"]
+  },
+  {
+    title: "The Future of Money: maths resources for schools",
+    description: "A collection of resources created to help young people aged 11 to 14 explore themes relating to the Bank of England Museum's *The Future of Money* exhibition. Five documents each collect activities, discussion points, and mathematical problem-solving challenges under a theme from the exhibition: What is money?; Futureproofing today's systems; Future methods of payment; Education, environment and sustainability; and Data and privacy. The resources are linked to the English National Curriculum and can be used inside the classroom at home, or alongside a visit to the museum, and include images of exhibition objects, teacher notes, and worksheets.",
+    link: "https://www.bankofengland.co.uk/museum/whats-on/the-future-of-money/the-future-of-money-maths-resources-for-schools",
+    type: "Classroom Resources",
+    tags: [" classroom resources", " museums", " money", " compound measures", " units of measurement", " problem solving", " probability", " data collection", " charts & graphs", " prime numbers", " divisibility", " sampling methods", " percentages", " 3D shapes", " arithmetic", " decimals", " sequences", " patterns", " inverse operations"]
   }
 ];
