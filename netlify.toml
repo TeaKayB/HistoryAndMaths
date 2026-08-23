@@ -7,10 +7,6 @@
 package = "@netlify/plugin-sitemap"
   [plugins.inputs]
   baseUrl = "https://historyand.mathsy.space"
-
-
-  [plugins.inputs]
-  # Tell the plugin to completely drop these files from the map
   exclude = [
     "./google14f368234d109347.html",
     "./google59e15a1b2f514750.html",
