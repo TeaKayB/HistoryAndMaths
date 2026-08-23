@@ -5,6 +5,9 @@
 
 [[plugins]]
 package = "@netlify/plugin-sitemap"
+  [plugins.inputs]
+  baseUrl = "https://historyand.mathsy.space"
+
 
   [plugins.inputs]
   # Tell the plugin to completely drop these files from the map
