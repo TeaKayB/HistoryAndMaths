@@ -20,6 +20,15 @@ const HAMIEN_RESOURCES = [
     type: "papers",
     tags: ["papers", " empirical study", " Key Stage 3", " research"]
   },
+
+{
+  title: "History for Diversity in the Teaching and Learning of Mathematics",
+  description: "Published in MSOR Connections, this workshop report explores how the history of mathematics can support inclusivity, belonging and engagement in mathematics education. It considers historically overlooked mathematicians, problematic mathematical and statistical legacies, and historical mathematical methods from different cultures as resources for teaching.",
+  link: "https://doi.org/10.21100/msor.v24i2.1677",
+  type: "papers",
+  tags: ["papers", "history of mathematics", "diversity and inclusion", "mathematics education"]
+},
+
   {
     title: "Maths in Museums: Investigating the potential benefits of maths-based museum learning activities to secondary schools, heritage sites and student attitudes towards mathematics",
     description: "HaMiEN co-founder Thomas K. Briggs' Master's thesis detailing a research project that explores the possible effects of maths-based trips on Key Stage 3 student attitudes to maths via interviews with maths teachers and museum educators, and questionnaire responses from students taking part in mathematical activities at museums.",
