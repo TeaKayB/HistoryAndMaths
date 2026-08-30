@@ -69,8 +69,25 @@ const HAMIEN_RESOURCES = [
     description: "A membership organisation that promotes and encourages research into the history of mathematics and the dissemination of the results of that research; develops awareness of the history of mathematics for the public benefit; and supports teachers and lecturers at all levels of mathematics education to incorporate the history of mathematics into their teaching, enriching their students' experience.",
     link: "https://bshm.ac.uk/",
     type: "societies",
-    tags: ["societies", " professional orgs", " research", " public benefit"]
+    tags: ["societies", "professional orgs", "research", "public benefit"]
   },
+
+{
+    title: "The History For Inclusion & Diversity in Mathematics Network (HIDIM)",
+    description: "A free-to-join network that 'aims to build a network around exploring the use of history of mathematics to promote equality, diversity and inclusion in the mathematics curriculum in UK HE.' Its aims represent a more focused subset of the aims of the HaMiEN, and has its own JISCmail list as well as regular reading groups and workshops.",
+    link: "https://mathshist4edi.wp.st-andrews.ac.uk/",
+    type: "societies",
+    tags: ["societies", "networks", " research", "public benefit", "HE", "Equality, Diversity, & Inclusion"]
+  },
+
+{
+    title: "The History For Inclusion & Diversity in Mathematics Network: Resource Repository",
+    description: "A growing repository that aims to share and discuss teaching resources relating to using the history of mathematics to promote equality, diversity, & inclusion in HE maths education in the UK.",
+    link: "https://www.mathshist4edi.org.uk/",
+    type: "websites",
+    tags: ["websites", "resources", " research",  "HE", "Equality, Diversity, & Inclusion"]
+  },
+
   {
     title: "History and Pedagogy of Mathematics: A Research Trip to Hong Kong",
     description: "A write-up of HaMiEN co-founder Jason Yip's trip to Hong Kong, funded by the BSHM Small Grant Scheme, as part of a research project comparing the effects of incorporating historical themes into mathematics lessons between England and Hong Kong.",
