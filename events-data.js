@@ -197,7 +197,7 @@ const HAMIEN_EVENTS = [
     endDate: "2026-10-07T18:00",
     locationType: "both",
     venue: "Barnard's Inn Hall, 30 Holborn, London EC1N 2HH",
-    description: "This free lecture (whether attending in-person or online) explains how /"mathematical sciences/" were understood in the 17th century, before exploring the arguments which were used to advocate for the use of the mathematical sciences, using visual materials such as title engravings of 17th century publications. Can previous answers to the question /“What do you need a mathematician for?/” help us understand our need for mathematicians today?"
+    description: "This free lecture (whether attending in-person or online) explains how \"mathematical sciences\" were understood in the 17th century, before exploring the arguments which were used to advocate for the use of the mathematical sciences, using visual materials such as title engravings of 17th century publications. Can previous answers to the question \“What do you need a mathematician for?\” help us understand our need for mathematicians today?"
   },
 
 ];
