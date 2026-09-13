@@ -209,14 +209,15 @@ const HAMIEN_EVENTS = [
     description: "The first of a set of five online talks and discussions on history of maths themes over the 2026-2027 academic year. Talks are presented live at a university and broadcast online for other groups or individuals to watch. For more information and to register see https://bshm.ac.uk/event/talking-history-of-maths/"
   },
 
-  {
+    {
     title: "BSHM Christmas Meeting",
-    startDate: "2026-12-05T13:30:00Z",
-    endDate: "2026-12-05T19:00:00Z",
+    startDate: "2026-12-05T13:30",
+    endDate: "2026-12-05T19:00",
     locationType: "online",
     venue: "",
-    description: "The BSHM's annual Christmas Meeting and AGM showcases excellent ongoing research in the history of mathematics. Tom will be presenting on his and Jason's classroom research project, including the development of the HaMiEN. The entire event is free and open to all—you do not need to be a BSHM member to join in. For more information and to register see https://bshm.ac.uk/event/bshm-christmas-meeting/"
-  }
+    description: "The BSHM's annual Christmas Meeting and AGM showcases excellent ongoing research in the history of mathematics. Tom will be presenting on his and Jason's classroom research project, including the development of the HaMiEN. The entire event is free and open to all—you do not need to be a BSHM member to join in. For more information and to register see https://bshm.ac.uk"
+  },
+
 
 
 ];
