@@ -214,7 +214,16 @@ const HAMIEN_EVENTS = [
     startDate: "2026-12-05T13:30",
     endDate: "2026-12-05T19:00",
     locationType: "online",
-    description: "The BSHM's annual Christmas Meeting and AGM showcases excellent ongoing research in the history of mathematics. Tom will be presenting on his and Jason's classroom research project, including the development of the HaMiEN. The entire event is free and open to all; you do not need to be a BSHM member to join in. For more information and to register see https://bshm.ac.uk"
+    description: "The BSHM's annual Christmas Meeting and AGM showcases excellent ongoing research in the history of mathematics. Tom will be presenting on his and Jason's classroom research project, including the development of the HaMiEN. The entire event is free and open to all; you do not need to be a BSHM member to join in. For more information and to register see https://bshm.ac.uk/event/bshm-christmas-meeting/"
+  },
+
+  {
+    title: "Research in Progress 2027",
+    startDate: "2027-02-27T10:00",
+    endDate: "2027-02-27T17:00",
+    locationType: "in-person",
+    venue: "The Queen's College, Oxford",
+    description: "The BSHM's annual meeting provides an opportunity for early-career scholars and research students in the history of mathematics to showcase their ongoing work. The event concludes with a keynote lecture by Prof. Karl Sigmund. For more information, abstract submission guidelines, and to register see https://bshm.ac.uk/event/research-in-progress-2/"
   },
 
 
