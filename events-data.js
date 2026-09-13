@@ -216,7 +216,7 @@ const HAMIEN_EVENTS = [
     locationType: "online",
     venue: "",
     description: "The BSHM's annual Christmas Meeting and AGM showcases excellent ongoing research in the history of mathematics. Tom will be presenting on his and Jason's classroom research project, including the development of the HaMiEN. The entire event is free and open to all—you do not need to be a BSHM member to join in. For more information and to register see https://bshm.ac.uk/event/bshm-christmas-meeting/"
-  },
+  }
 
 
 ];
