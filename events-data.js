@@ -200,4 +200,13 @@ const HAMIEN_EVENTS = [
     description: "This free lecture (whether attending in-person or online) explains how \"mathematical sciences\" were understood in the 17th century, before exploring the arguments which were used to advocate for the use of the mathematical sciences, using visual materials such as title engravings of 17th century publications. Can previous answers to the question \“What do you need a mathematician for?\” help us understand our need for mathematicians today? Info and booking: https://www.gresham.ac.uk/whats-on/what-mathematician"
   },
 
+{
+    title: "Talking History of Maths",
+    startDate: "2026-10-14T14:00",
+    endDate: "2026-10-14T16:00",
+    locationType: "online",
+    description: "The first of a set of five online talks and discussions on history of maths themes over the 2026-2027 academic year. Talks are presented live at a university and broadcast online for other groups or individuals to watch.
+For more information and to register see https://bshm.ac.uk/event/talking-history-of-maths/"
+  },
+
 ];
