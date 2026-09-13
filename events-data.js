@@ -205,6 +205,7 @@ const HAMIEN_EVENTS = [
     startDate: "2026-10-14T14:00",
     endDate: "2026-10-14T16:00",
     locationType: "online",
+    venue: ""
     description: "The first of a set of five online talks and discussions on history of maths themes over the 2026-2027 academic year. Talks are presented live at a university and broadcast online for other groups or individuals to watch. For more information and to register see https://bshm.ac.uk/event/talking-history-of-maths/"
   },
 
