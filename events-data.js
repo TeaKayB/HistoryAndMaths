@@ -209,6 +209,15 @@ const HAMIEN_EVENTS = [
     description: "The first of a set of five online talks and discussions on history of maths themes over the 2026-2027 academic year. Talks are presented live at a university and broadcast online for other groups or individuals to watch. For more information and to register see https://bshm.ac.uk/event/talking-history-of-maths/"
   },
 
+  {
+    title: "Public Lecture: What does it take to become a mathematician?",
+    startDate: "2026-10-27T18:30",
+    endDate: "2026-02-27T20:00",
+    locationType: "in-person",
+    venue: "The London School of Economics & Politics (LSE), (Venue TBC at time of posting: check link for details)",
+    description: "In this free public lecture, Dr Brigitte Stenhouse explores what it took to become a mathematician in the nineteenth century through the lens of Scottish polymath Mary Somerville. For more information and to register to attend see https://www.eventbrite.co.uk/e/public-lecture-what-does-it-take-to-become-a-mathematician-tickets-2000151368586?aff=oddtdtcreator&keep_tld=true"
+  },
+
     {
     title: "BSHM Christmas Meeting",
     startDate: "2026-12-05T13:30",
