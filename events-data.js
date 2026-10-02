@@ -211,8 +211,8 @@ const HAMIEN_EVENTS = [
 
   {
     title: "Public Lecture: What does it take to become a mathematician?",
-    startDate: "2026-10-27T18:30",
-    endDate: "2026-10-27T20:00",
+    startDate: "2026-10-14T18:30",
+    endDate: "2026-10-14T20:00",
     locationType: "in-person",
     venue: "The London School of Economics & Politics (LSE), (Venue TBC at time of posting: check link for details)",
     description: "In this free public lecture, Dr Brigitte Stenhouse explores what it took to become a mathematician in the nineteenth century through the lens of Scottish polymath Mary Somerville. For more information and to register to attend see https://www.eventbrite.co.uk/e/public-lecture-what-does-it-take-to-become-a-mathematician-tickets-2000151368586?aff=oddtdtcreator&keep_tld=true"
