@@ -116,7 +116,7 @@ const HAMIEN_EVENTS = [
     endDate: "",
     locationType: "in-person",
     venue: "The Queen's College, Oxford",
-    description: "Tom presented about his book, The Mathematicians' Library, to the Oxford History of Mathematics Forum. \n Find out about The Mathematicians' Library at https://tkbriggs.co.uk/other-projects/publications/the-mathematicians-library/"
+    description: "Tom presented about his book, The Mathematicians' Library, to the Oxford History of Mathematics Forum. This talk was not recorded, but this talk focused on his motivations for writing the book and what he hopes people might get out of reading it. You can find out more about The Mathematicians' Library at https://tkbriggs.co.uk/other-projects/publications/the-mathematicians-library/"
   },
   {
     title: "Oxford History of Mathematics Forum talk: History in Mathematics Lessons (a research project)",
@@ -142,14 +142,7 @@ const HAMIEN_EVENTS = [
     venue: "Nottingham",
     description: "Rob Eastaway will be chairing a symposium in which he and Thomas K. Briggs discuss <i>how history can enrich maths lessons</i>. \n This is one session of many that comprise the 10th British Congress of Mathematics Education, an event which runs from 23rd to 24th October. \n For more information, including price, venue, and booking, visit https://www.bcme.co.uk/ ."
   },
-  {
-    title: "MathsJam Gathering 2026",
-    startDate: "2026-11-14",
-    endDate: "2026-11-15",
-    locationType: "both",
-    venue: "Kents Hill Park Conference Centre, Milton Keynes",
-    description: "The annual MathsJam Gathering isn't a history-specific event, but there are usually a few history-themed talks amongst the 40 or so 5-minute lightning talks that make up the bulk of the weekend. A great place to meet people who like maths recreationally (i.e. as more than just an education or work thing). Also on offer during the weekend: the MathsJam Jam, the Competition Competition, and the MathsJam Bake-Off. For more information including pricing and to book, visit https://www.mathsjam.com/gathering/uk/."
-  },
+  
   {
   title: "British Early Career Mathematicians’ Colloquium 2026",
   startDate: "2026-06-24",
@@ -172,7 +165,7 @@ const HAMIEN_EVENTS = [
   endDate: "2026-09-21T21:00",
   locationType: "in-person",
   venue: "MathsWorld UK, Arches, 6 Burrell St, London SE1 0UN",
-  description: "A musical performance by the Pseudorandom Ensemble ('one of the UK's top ten mathematically-inspired musical combos'). They're a ~5-piece band that plays original music with lyrics based on mathematical themes (including plenty of history lessons!). The musical style is fairly eclectic, but it tends to hover around the folky end of things. Tom will be operating the music desk for the night. Tickets cost £8 per person (or £5 if you have an annual pass to Maths World UK). For more information and to book tickets visit https://mathsworld.com/events/PseudorandomEnsemble"
+  description: "A musical performance by the Pseudorandom Ensemble ('one of the UK's top ten mathematically-inspired musical combos'). They're a ~5-piece band that plays original music with lyrics based on mathematical themes (including plenty of history lessons!). The musical style is fairly eclectic, but it tends to hover around the folky end of things. Tom will be operating the music desk for the night. Some clips from the performance are now available to view online: https://www.youtube.com/playlist?list=PLU1HWNokx5q8"
   },
   {
   title: "InHERited LINES @ MathsWorld UK",
@@ -197,7 +190,7 @@ const HAMIEN_EVENTS = [
     endDate: "2026-10-07T18:00",
     locationType: "both",
     venue: "Barnard's Inn Hall, 30 Holborn, London EC1N 2HH",
-    description: "This free lecture (whether attending in-person or online) explains how \"mathematical sciences\" were understood in the 17th century, before exploring the arguments which were used to advocate for the use of the mathematical sciences, using visual materials such as title engravings of 17th century publications. Can previous answers to the question \“What do you need a mathematician for?\” help us understand our need for mathematicians today? Info and booking: https://www.gresham.ac.uk/whats-on/what-mathematician"
+    description: "This free lecture (whether attending in-person or online) explains how \"mathematical sciences\" were understood in the 17th century, before exploring the arguments which were used to advocate for the use of the mathematical sciences, using visual materials such as title engravings of 17th century publications. Can previous answers to the question \“What do you need a mathematician for?\” help us understand our need for mathematicians today? A recording of this lecture is now freely available on Gresham College's website: https://www.gresham.ac.uk/watch-now/what-mathematician"
   },
 
 {
@@ -217,7 +210,14 @@ const HAMIEN_EVENTS = [
     venue: "The London School of Economics & Politics (LSE), (Venue TBC at time of posting: check link for details)",
     description: "In this free public lecture, Dr Brigitte Stenhouse explores what it took to become a mathematician in the nineteenth century through the lens of Scottish polymath Mary Somerville. For more information and to register to attend see https://www.eventbrite.co.uk/e/public-lecture-what-does-it-take-to-become-a-mathematician-tickets-2000151368586?aff=oddtdtcreator&keep_tld=true"
   },
-
+{
+    title: "MathsJam Gathering 2026",
+    startDate: "2026-11-14",
+    endDate: "2026-11-15",
+    locationType: "both",
+    venue: "Kents Hill Park Conference Centre, Milton Keynes",
+    description: "The annual MathsJam Gathering isn't a history-specific event, but there are usually a few history-themed talks amongst the 40 or so 5-minute lightning talks that make up the bulk of the weekend. A great place to meet people who like maths recreationally (i.e. as more than just an education or work thing). Also on offer during the weekend: the MathsJam Jam, the Competition Competition, and the MathsJam Bake-Off. For more information including pricing and to book, visit https://www.mathsjam.com/gathering/uk/."
+  },
     {
     title: "BSHM Christmas Meeting",
     startDate: "2026-12-05T13:30",
